@@ -8,7 +8,11 @@ buildscript {
         dagger_hilt_work = '1.0.0'
         retrofit_version = '2.9.0'
         lifecycle_version = '2.5.1'
+        lifecycle_extension = '2.2.0'
         okhttp_version = '5.0.0-alpha.2'
+        nav_version = '2.5.3'
+        workmanager_version = '2.7.1'
+
     }
 
     dependencies {
