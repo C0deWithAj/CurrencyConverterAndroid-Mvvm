@@ -28,6 +28,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "FIXER_IO_ACCESS_KEY", "\"wV1xvbmxhTwRpz7YmP8ZcEGXNA6he7Do\"")
+            buildConfigField("String", "FIXER_BASE_URL", "\"https://api.apilayer.com/fixer/\"")
+        }
+
+        debug {
+            buildConfigField("String", "FIXER_IO_ACCESS_KEY", "\"wV1xvbmxhTwRpz7YmP8ZcEGXNA6he7Do\"")
+            buildConfigField("String", "FIXER_BASE_URL", "\"https://api.apilayer.com/fixer/\"")
         }
     }
     compileOptions {
