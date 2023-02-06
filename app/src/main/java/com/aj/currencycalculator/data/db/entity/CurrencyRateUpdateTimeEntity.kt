@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 data class CurrencyRateUpdateTimeEntity(
     @PrimaryKey val id: String,
     // From API
-    val updatedAt: Long = System.currentTimeMillis() / 1000,
-    val timeStamp: Long
+    val timeStampAPI: Long,
+    val updatedAt: Long = System.currentTimeMillis() / 1000
 )
