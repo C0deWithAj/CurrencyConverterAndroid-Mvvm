@@ -28,3 +28,4 @@ Uses concepts of the notorious Uncle Bob's architecture called [Clean Architectu
 - [Retrofit](https://github.com/square/retrofit) - Used for REST api communication.
 - [OkHttp](http://square.github.io/okhttp/) - HTTP client that's efficient by default: HTTP/2 support allows all requests to the same host to share a socket
 - [Gson](https://github.com/square/moshi) - Used to convert Java Objects into their JSON representation and vice versa.
+- [Ktlint](https://pinterest.github.io/ktlint/) - ktlint aims to capture the official Kotlin coding conventions and Android Kotlin Style Guide.
