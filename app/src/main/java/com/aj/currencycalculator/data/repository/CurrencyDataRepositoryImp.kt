@@ -30,7 +30,7 @@ class CurrencyDataRepositoryImp @Inject constructor(
             if (response.success) {
                 val result = response.toListOfRates()
                 result?.let {
-                    val daoRates = networkDaoMapper.mapToDao(it)
+                    val daoRates = networkDaoMapper.mapToEntity(it)
                     currencyTimeDao.insert(
                         CurrencyRateUpdateTimeEntity(
                             "1",
@@ -55,4 +55,10 @@ class CurrencyDataRepositoryImp @Inject constructor(
             return ex.translateToError()
         }
     }
+
+    override suspend fun getCurrencyRateList(): List<CurrencyRateEntity> =
+        currencyRateDao.getCurrencyList()
+
+    override suspend fun getCurrencyUpdateTime(): CurrencyRateUpdateTimeEntity =
+        currencyTimeDao.findLastTimeStamp()
 }

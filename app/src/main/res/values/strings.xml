@@ -2,8 +2,9 @@
     <string name="app_name">CurrencyCalculator</string>
     <string name="from">From</string>
     <string name="to">To</string>
-    <string name="rates_last_updated">Rates Last Updated:</string>
-    <color name="spinner_bg">#B7F1EB</color>
-    <color name="grey_1">#232323</color>
-    <color name="white_1">#FFFFFFFF</color>
+    <string name="rates_last_updated">Rates Last Updated: %s</string>
+    <string name="refresh_currency_rates">Refresh rates</string>
+    <string name="oh_snap">Oh Snap!</string>
+    <string name="unknown_error">An unknown Error has occured</string>
+
 </resources>

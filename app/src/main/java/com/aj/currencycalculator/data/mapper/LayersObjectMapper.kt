@@ -5,6 +5,6 @@ import com.aj.currencycalculator.data.model.CurrencyRateUI
 import com.aj.currencycalculator.data.network.model.CurrencyRateNetwork
 
 interface LayersObjectMapper {
-    fun mapToDao(listCurrencyEntity: List<CurrencyRateNetwork>): List<CurrencyRateEntity>
-    fun daoToUI(listCurrencyDao: List<CurrencyRateEntity>): List<CurrencyRateUI>
+    fun mapToEntity(listCurrency: List<CurrencyRateNetwork>): List<CurrencyRateEntity>
+    fun entityToUI(listCurrencyEntity: List<CurrencyRateEntity>): List<CurrencyRateUI>
 }

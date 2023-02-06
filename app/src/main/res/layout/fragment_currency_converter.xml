@@ -13,11 +13,20 @@
             name="currenciesList"
             type="List&lt;com.aj.currencycalculator.data.model.CurrencyRateUI&gt;" />
 
+        <variable
+            name="lastUpdateDateTime"
+            type="String" />
+
+        <variable
+            name="viewModel"
+            type="com.aj.currencycalculator.ui.currencyconverter.CurrencyConverterViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/parentLayout"
         tools:context=".ui.currencyconvert.CurrencyConverterFragment">
 
         <androidx.appcompat.widget.AppCompatImageButton
@@ -92,7 +101,7 @@
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_from"
             android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_50sdp"
+            android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="50dp"
             android:background="@drawable/et_border_style"
             android:ems="10"
@@ -107,7 +116,7 @@
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_to"
             android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_45sdp"
+            android:layout_height="@dimen/_40sdp"
             android:background="@drawable/et_border_style"
             android:ems="10"
             android:enabled="false"
@@ -117,18 +126,29 @@
             app:layout_constraintTop_toTopOf="@+id/et_from"
             tools:ignore="SpeakableTextPresentCheck" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_rates_update_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_20sdp"
-            android:text="@string/rates_last_updated"
-            android:visibility="gone"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:text="@{String.format(@string/rates_last_updated, lastUpdateDateTime)}"
+            app:layout_constraintBottom_toTopOf="@+id/button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/rates_last_updated" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:onClick="@{(view) -> viewModel.refreshCurrencyRates()}"
+            android:text="@string/refresh_currency_rates"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:visibility="gone" />
+            app:layout_constraintStart_toStartOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

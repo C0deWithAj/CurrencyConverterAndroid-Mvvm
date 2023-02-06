@@ -9,21 +9,21 @@ fun Exception.translateToError(): ResultData.Exception {
         is HttpException -> {
             return ResultData.Exception(
                 this,
-                "Oops, something went wrong! ${this.response()?.errorBody()?.string()}"
+                "Something went wrong! ${this.response()?.errorBody()?.string()}"
             )
         }
 
         is IOException -> {
             return ResultData.Exception(
                 this,
-                "Couldn't reach server, check your internet connection. Exception - ${this.message}"
+                "Couldn't reach server, Check your internet connection"
             )
         }
 
         else -> {
             return ResultData.Exception(
                 this,
-                "Oops, something went wrong! ${this.message}"
+                "Something went wrong! ${this.message}"
             )
         }
     }

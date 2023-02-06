@@ -26,10 +26,8 @@ object RepositoryModule {
         networkDaoMapper: LayersObjectMapper
     ): CurrencyDataRepository =
         CurrencyDataRepositoryImp(currencyRateDAO, currencyTimeDao, api, networkDaoMapper)
-    
+
     @Singleton
     @Provides
     fun providesNetworkMapper(): LayersObjectMapper = LayersObjectMapperImp()
-
-
 }

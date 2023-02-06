@@ -9,14 +9,14 @@ import javax.inject.Inject
 
 class LayersObjectMapperImp @Inject constructor() : LayersObjectMapper {
 
-    override fun mapToDao(listCurrencyEntity: List<CurrencyRateNetwork>): List<CurrencyRateEntity> {
-        return listCurrencyEntity.map {
+    override fun mapToEntity(listCurrency: List<CurrencyRateNetwork>): List<CurrencyRateEntity> {
+        return listCurrency.map {
             it.toDBModel()
         }
     }
 
-    override fun daoToUI(listCurrencyDao: List<CurrencyRateEntity>): List<CurrencyRateUI> {
-        return listCurrencyDao.map {
+    override fun entityToUI(listCurrencyEntity: List<CurrencyRateEntity>): List<CurrencyRateUI> {
+        return listCurrencyEntity.map {
             it.toUIModel()
         }
     }

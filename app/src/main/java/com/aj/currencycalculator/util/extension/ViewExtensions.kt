@@ -7,7 +7,6 @@ import android.widget.EditText
 import com.google.android.material.snackbar.Snackbar
 import org.apache.commons.lang3.StringUtils
 
-
 fun EditText.hideKeyboard() {
     val keyboard: InputMethodManager? =
         context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
@@ -30,7 +29,6 @@ fun View.showSnackBar(
     snackbar.show()
     return snackbar
 }
-
 
 /**
  * Shorthand extension function to make view gone
