@@ -1,13 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.currencyconverter.CurrencyConverterFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="java.util.List" />
+
+        <variable
+            name="currenciesList"
+            type="List&lt;com.aj.currencycalculator.data.model.CurrencyRateUI&gt;" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        tools:context=".ui.currencyconvert.CurrencyConverterFragment">
 
-</FrameLayout>
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnSwap"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/_150sdp"
+            android:background="@color/white"
+            android:src="@drawable/ic_two_way"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtInput_from"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@color/white_1"
+            android:hint="@string/from"
+            android:textColorHint="@color/grey_1"
+            app:layout_constraintBottom_toBottomOf="@+id/btnSwap"
+            app:layout_constraintEnd_toStartOf="@+id/btnSwap"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnSwap">
+
+            <AutoCompleteTextView
+                android:id="@+id/dropdown_from_currency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                app:loadCurrencies="@{currenciesList}"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner_to"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:spinnerMode="dropdown"
+            app:layout_constraintBottom_toBottomOf="@+id/btnSwap"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnSwap"
+            app:layout_constraintTop_toTopOf="@+id/btnSwap"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtInput_To"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@color/white_1"
+            android:hint="@string/to"
+            android:textColorHint="@color/grey_1"
+            app:layout_constraintBottom_toBottomOf="@+id/btnSwap"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnSwap"
+            app:layout_constraintTop_toTopOf="@+id/btnSwap">
+
+            <AutoCompleteTextView
+                android:id="@+id/dropdown_to_currency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                app:loadCurrencies="@{currenciesList}"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_from"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/et_border_style"
+            android:ems="10"
+            android:inputType="number"
+            android:maxLength="7"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/txtInput_from"
+            app:layout_constraintStart_toStartOf="@+id/txtInput_from"
+            app:layout_constraintTop_toBottomOf="@+id/txtInput_from"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_to"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:background="@drawable/et_border_style"
+            android:ems="10"
+            android:enabled="false"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="@+id/spinner_to"
+            app:layout_constraintStart_toStartOf="@+id/spinner_to"
+            app:layout_constraintTop_toTopOf="@+id/et_from"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/tv_rates_update_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:text="@string/rates_last_updated"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="gone" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

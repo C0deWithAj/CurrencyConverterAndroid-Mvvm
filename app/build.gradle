@@ -41,6 +41,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+    }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -83,6 +89,9 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 
+    //Apache for string
+    implementation "org.apache.commons:commons-lang3:$apache_version"
+
     // Coroutine Lifecycle Scopes
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
@@ -93,4 +102,7 @@ dependencies {
 
     //Work Manager
     implementation "androidx.work:work-runtime-ktx:$workmanager_version"
+
+    //SDP
+    implementation "com.intuit.sdp:sdp-android:$sdp_version"
 }
