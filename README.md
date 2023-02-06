@@ -18,6 +18,7 @@ Uses concepts of the notorious Uncle Bob's architecture called [Clean Architectu
 ## Tech stack - Library:
 - [Kotlin](https://kotlinlang.org/)
 - [Coroutines](https://github.com/Kotlin/kotlinx.coroutines) - A coroutine is a concurrency design pattern that you can use on Android to simplify code that executes asynchronously
+- [Data Binding](https://developer.android.com/topic/libraries/data-binding)
 - [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/) - Flow is used to pass (send) a stream of data that can be computed asynchronously
 - [Dagger-Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - for dependency injection.
  - [LiveData](https://developer.android.com/topic/libraries/architecture/livedata) - For reactive style programming (from VM to UI). 
