@@ -40,12 +40,12 @@ class CurrencyConverterFragment : Fragment() {
         binding.currenciesList = ArrayList<CurrencyRateUI>()
         addObservers()
         addDropDownListeners()
+        viewModel.loadList()
     }
 
     private fun addObservers() {
-
+        viewModel.currencyList.observe(this.viewLifecycleOwner, currencyListObserver)
     }
-
 
     private fun addDropDownListeners() {
         binding.dropdownFromCurrency.setOnItemClickListener { parent, _, position, _ ->
