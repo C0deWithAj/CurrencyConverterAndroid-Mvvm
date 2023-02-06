@@ -1,6 +1,8 @@
 # Currencny Converter
 
-A Currency Converter using MVVM + Clean Architecture using [Fixer API](https://fixer.io/). The application is offline first. On Free API, It fetches currency data for first time and then gives users and ability to pull new data on demand. If the Fixer API had a paid plan, then a WorkManager would be scheduled to fetch new data at a fixed interval e.g "Pull fresh currency rates every 60 minutes: 
+✨ A Currency Converter with MVVM + Clean Architecture using [Fixer API](https://fixer.io/) ✨
+The application is offline first. On Free API. It fetches currency data for first time and then gives users ability to pull new data on demand.
+If the Fixer API had a paid plan, then a WorkManager would be scheduled to fetch new data at a fixed interval e.g "Pull fresh currency rates every 60 minutes: 
 
 
 ## Architecture
