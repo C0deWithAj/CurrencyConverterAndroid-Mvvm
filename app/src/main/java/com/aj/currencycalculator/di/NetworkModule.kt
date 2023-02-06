@@ -25,7 +25,8 @@ object NetworkModule {
     @Provides
     fun providesRetrofit(
         @Named("BaseUrl")
-        baseUrl: String, okHttpClient: OkHttpClient
+        baseUrl: String,
+        okHttpClient: OkHttpClient
     ): Retrofit {
         return Retrofit.Builder().client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create()).baseUrl(
@@ -56,16 +57,17 @@ object NetworkModule {
             .addInterceptor(httpLoggingInterceptor)
             .connectTimeout(OK_HTTP_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(OK_HTTP_TIMEOUT, TimeUnit.SECONDS)
-            .addInterceptor(Interceptor { chain ->
-                val original = chain.request()
-                val request: Request =
-                    original.newBuilder().addHeader("apikey", apiKey)
-                        .method(original.method, original.body).build()
-                chain.proceed(request)
-            })
+            .addInterceptor(
+                Interceptor { chain ->
+                    val original = chain.request()
+                    val request: Request =
+                        original.newBuilder().addHeader("apikey", apiKey)
+                            .method(original.method, original.body).build()
+                    chain.proceed(request)
+                }
+            )
             .build()
     }
-
 
     @Singleton
     @Provides
@@ -85,5 +87,4 @@ object NetworkModule {
     fun providesAPIKey(): String {
         return BuildConfig.FIXER_IO_ACCESS_KEY
     }
-
 }

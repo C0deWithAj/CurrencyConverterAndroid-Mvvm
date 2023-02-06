@@ -1,6 +1,5 @@
 package com.aj.currencycalculator.data.network
 
-
 import com.aj.currencycalculator.data.network.model.CurrencyResponse
 import com.aj.currencycalculator.util.AppConstant
 import com.aj.currencycalculator.util.NetworkConstant
@@ -12,5 +11,4 @@ interface CurrencyAPI {
     suspend fun getCurrencies(
         @Query("base") source: String = AppConstant.BASE_CURRENCY
     ): CurrencyResponse
-
 }

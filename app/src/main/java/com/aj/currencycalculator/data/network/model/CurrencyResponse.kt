@@ -23,6 +23,3 @@ data class CurrencyResponse(
     @Expose
     val error: CurrencyAPIError?
 )
-
-
-

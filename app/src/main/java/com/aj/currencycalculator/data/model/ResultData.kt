@@ -12,5 +12,3 @@ sealed class ResultData<out T> {
     data class Exception(val exception: kotlin.Exception? = null, val msg: String? = null) :
         ResultData<Nothing>()
 }
-
-

@@ -6,9 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class CurrencyRateNetwork(
     @SerializedName("code")
     @Expose
-    val code: String?, @SerializedName("rate")
+    val code: String?,
+    @SerializedName("rate")
     @Expose val rate: Double = 0.0
 )
-
-
-
