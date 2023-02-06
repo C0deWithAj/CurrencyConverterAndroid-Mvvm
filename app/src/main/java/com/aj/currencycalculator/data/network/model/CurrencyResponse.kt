@@ -1,5 +1,6 @@
 package com.aj.currencycalculator.data.network.model
 
+import com.google.gson.JsonObject
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -18,8 +19,17 @@ data class CurrencyResponse(
     val date: String?,
     @SerializedName("rates")
     @Expose
-    val rates: Rates?,
+    val rates: JsonObject?,
     @SerializedName("error")
     @Expose
     val error: CurrencyAPIError?
 )
+
+fun CurrencyResponse.toListOfRates(): List<CurrencyRateNetwork>? {
+    return this.rates?.asMap()?.map {
+        CurrencyRateNetwork(
+            code = it.key,
+            rate = it.value.asDouble
+        )
+    }
+}

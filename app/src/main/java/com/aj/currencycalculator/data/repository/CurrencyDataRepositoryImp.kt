@@ -7,6 +7,7 @@ import com.aj.currencycalculator.data.db.entity.CurrencyRateUpdateTimeEntity
 import com.aj.currencycalculator.data.mapper.LayersObjectMapper
 import com.aj.currencycalculator.data.model.ResultData
 import com.aj.currencycalculator.data.network.CurrencyAPI
+import com.aj.currencycalculator.data.network.model.toListOfRates
 import com.aj.currencycalculator.util.extension.translateToError
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -27,7 +28,8 @@ class CurrencyDataRepositoryImp @Inject constructor(
         try {
             val response = currencyConverterAPI.getCurrencies()
             if (response.success) {
-                response.rates?.conversionRates?.let {
+                val result = response.toListOfRates()
+                result?.let {
                     val daoRates = networkDaoMapper.mapToDao(it)
                     currencyTimeDao.insert(
                         CurrencyRateUpdateTimeEntity(

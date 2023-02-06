@@ -12,7 +12,7 @@ buildscript {
         okhttp_version = '5.0.0-alpha.2'
         nav_version = '2.5.3'
         workmanager_version = '2.7.1'
-
+        gson_version = '2.10'
     }
 
     dependencies {
