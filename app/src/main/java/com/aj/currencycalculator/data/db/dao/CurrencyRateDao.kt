@@ -19,7 +19,7 @@ interface CurrencyRateDao {
     suspend fun hasData(): Boolean
 
     @Query("SELECT * FROM CurrencyRateEntity WHERE code=:currencyCode ")
-    suspend fun findCurrency(
+    suspend fun getCurrencyRate(
         currencyCode: String,
-    ): CurrencyRateEntity
+    ): List<CurrencyRateEntity>
 }

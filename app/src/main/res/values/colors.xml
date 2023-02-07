@@ -10,4 +10,7 @@
     <color name="spinner_bg">#B7F1EB</color>
     <color name="grey_1">#232323</color>
     <color name="white_1">#FFFFFFFF</color>
+    <color name="et_enabled_text_color">#2B2A2A</color>
+    <color name="et_disabled_text_color">#4A4A4A</color>
+    <color name="light_green_1">#CCF6B5</color>
 </resources>

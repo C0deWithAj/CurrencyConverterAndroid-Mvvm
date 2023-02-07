@@ -61,4 +61,7 @@ class CurrencyDataRepositoryImp @Inject constructor(
 
     override suspend fun getCurrencyUpdateTime(): CurrencyRateUpdateTimeEntity =
         currencyTimeDao.findLastTimeStamp()
+
+    override suspend fun getCurrencyRateList(currencyCode: String): List<CurrencyRateEntity>? =
+        currencyRateDao.getCurrencyRate(currencyCode)
 }

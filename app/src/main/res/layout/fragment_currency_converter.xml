@@ -24,17 +24,17 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/parentLayout"
         tools:context=".ui.currencyconvert.CurrencyConverterFragment">
 
         <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/btnSwap"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_50sdp"
-            android:layout_marginTop="@dimen/_150sdp"
-            android:background="@color/white"
+            android:id="@+id/btn_swap"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_80sdp"
+            android:background="@color/light_green_1"
             android:src="@drawable/ic_two_way"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -50,10 +50,10 @@
             android:background="@color/white_1"
             android:hint="@string/from"
             android:textColorHint="@color/grey_1"
-            app:layout_constraintBottom_toBottomOf="@+id/btnSwap"
-            app:layout_constraintEnd_toStartOf="@+id/btnSwap"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_swap"
+            app:layout_constraintEnd_toStartOf="@+id/btn_swap"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btnSwap">
+            app:layout_constraintTop_toTopOf="@+id/btn_swap">
 
             <AutoCompleteTextView
                 android:id="@+id/dropdown_from_currency"
@@ -70,10 +70,10 @@
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_50sdp"
             android:spinnerMode="dropdown"
-            app:layout_constraintBottom_toBottomOf="@+id/btnSwap"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_swap"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnSwap"
-            app:layout_constraintTop_toTopOf="@+id/btnSwap"
+            app:layout_constraintStart_toEndOf="@+id/btn_swap"
+            app:layout_constraintTop_toTopOf="@+id/btn_swap"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -84,10 +84,10 @@
             android:background="@color/white_1"
             android:hint="@string/to"
             android:textColorHint="@color/grey_1"
-            app:layout_constraintBottom_toBottomOf="@+id/btnSwap"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_swap"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnSwap"
-            app:layout_constraintTop_toTopOf="@+id/btnSwap">
+            app:layout_constraintStart_toEndOf="@+id/btn_swap"
+            app:layout_constraintTop_toTopOf="@+id/btn_swap">
 
             <AutoCompleteTextView
                 android:id="@+id/dropdown_to_currency"
@@ -106,7 +106,7 @@
             android:background="@drawable/et_border_style"
             android:ems="10"
             android:inputType="number"
-            android:maxLength="7"
+            android:maxLength="10"
             android:padding="10dp"
             app:layout_constraintEnd_toEndOf="@+id/txtInput_from"
             app:layout_constraintStart_toStartOf="@+id/txtInput_from"
@@ -121,10 +121,13 @@
             android:ems="10"
             android:enabled="false"
             android:inputType="number"
+            android:padding="10dp"
+            android:textColor="@drawable/et_state_color"
             app:layout_constraintEnd_toEndOf="@+id/spinner_to"
             app:layout_constraintStart_toStartOf="@+id/spinner_to"
             app:layout_constraintTop_toTopOf="@+id/et_from"
             tools:ignore="SpeakableTextPresentCheck" />
+
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_rates_update_time"
@@ -148,7 +151,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

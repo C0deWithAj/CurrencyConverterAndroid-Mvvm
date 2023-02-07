@@ -8,4 +8,5 @@ interface CurrencyDataRepository {
     suspend fun updateDataFromNetwork(): ResultData<List<CurrencyRateEntity>>
     suspend fun getCurrencyRateList(): List<CurrencyRateEntity>
     suspend fun getCurrencyUpdateTime(): CurrencyRateUpdateTimeEntity
+    suspend fun getCurrencyRateList(currencyCode: String): List<CurrencyRateEntity>?
 }
