@@ -7,7 +7,7 @@ import com.aj.currencycalculator.data.network.model.CurrencyRateNetwork
 import com.aj.currencycalculator.data.network.model.toDBModel
 import javax.inject.Inject
 
-class LayersObjectMapperImp @Inject constructor() : LayersObjectMapper {
+class ObjectMapperImp @Inject constructor() : ObjectMapper {
 
     override fun mapToEntity(listCurrency: List<CurrencyRateNetwork>): List<CurrencyRateEntity> {
         return listCurrency.map {

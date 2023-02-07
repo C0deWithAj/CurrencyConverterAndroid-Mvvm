@@ -13,6 +13,7 @@ import com.aj.currencycalculator.domain.updatedtime.GetCurrencyFetchTimeUseCase
 import com.aj.currencycalculator.domain.updaterates.RefreshCurrencyRatesUseCase
 import com.aj.currencycalculator.util.SharedPrefHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -50,38 +51,47 @@ class CurrencyConverterViewModel @Inject constructor(
     }
 
     private fun fetchLastSavedCurrencyRates() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 getCurrencyRateListUseCase.getSavedCurrencyList().collect {
-                    _currencyList.value = ResultData.Success(it)
+                    _currencyList.postValue(ResultData.Success(it))
                     getLastFetchUpdateTime()
                 }
             } catch (ex: Exception) {
                 ex.printStackTrace()
-                _currencyList.value =
-                    ResultData.Exception(ex, "An Error Occurred - ${ex.message}")
+                _currencyList.postValue(
+                    ResultData.Exception(
+                        ex,
+                        "An Error Occurred - ${ex.message}"
+                    )
+                )
             }
         }
     }
 
     fun refreshCurrencyRates() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
+                _currencyList.postValue(ResultData.Loading())
                 fetchCurrencyRateUseCase.refreshCurrencyRateFromAPI().collect {
-                    _currencyList.value = it
+                    _currencyList.postValue(it)
                     sharedPrefHelper.setCurrencyRateSaved(true)
                     getLastFetchUpdateTime()
                 }
             } catch (ex: Exception) {
                 ex.printStackTrace()
-                _currencyList.value =
-                    ResultData.Exception(ex, "An Error Occurred - ${ex.message}")
+                _currencyList.postValue(
+                    ResultData.Exception(
+                        ex,
+                        "An Error Occurred - ${ex.message}"
+                    )
+                )
             }
         }
     }
 
     private fun getLastFetchUpdateTime() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 getCurrencyDateTimeFetch.getLastUpdateTime().collect {
                     _lastFetchDateTime.postValue(it)
@@ -104,14 +114,14 @@ class CurrencyConverterViewModel @Inject constructor(
         targetCurrencyCode: String?
     ) {
         if (!inputCurrency.isNullOrEmpty() && !baseCurrencyCode.isNullOrEmpty() && !targetCurrencyCode.isNullOrEmpty()) {
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 try {
                     currencyConverterUseCase.calculateCurrency(
                         inputCurrency,
                         baseCurrencyCode,
                         targetCurrencyCode
                     ).collect {
-                        _convertedCurrency.value = it
+                        _convertedCurrency.postValue(it)
                     }
                 } catch (ex: Exception) {
                     ex.printStackTrace()

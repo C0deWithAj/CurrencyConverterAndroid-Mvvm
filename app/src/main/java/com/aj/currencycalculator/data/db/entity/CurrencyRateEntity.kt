@@ -10,3 +10,5 @@ data class CurrencyRateEntity(@PrimaryKey var code: String = "", var rate: Doubl
 fun CurrencyRateEntity.toUIModel() = CurrencyRateUI(
     code = code, rate = rate
 )
+
+

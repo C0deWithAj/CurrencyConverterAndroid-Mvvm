@@ -1,6 +1,6 @@
 package com.aj.currencycalculator.domain.updaterates
 
-import com.aj.currencycalculator.data.mapper.LayersObjectMapper
+import com.aj.currencycalculator.data.mapper.ObjectMapper
 import com.aj.currencycalculator.data.model.CurrencyRateUI
 import com.aj.currencycalculator.data.model.ResultData
 import com.aj.currencycalculator.data.repository.CurrencyDataRepository
@@ -10,11 +10,10 @@ import javax.inject.Inject
 
 class RefreshCurrencyRatesUseCaseImp @Inject constructor(
     private val repository: CurrencyDataRepository,
-    private val layersObjectMapper: LayersObjectMapper
+    private val layersObjectMapper: ObjectMapper
 ) : RefreshCurrencyRatesUseCase {
 
     override fun refreshCurrencyRateFromAPI(): Flow<ResultData<List<CurrencyRateUI>>> = flow {
-        emit(ResultData.Loading())
         when (val result = repository.updateDataFromNetwork()) {
             is ResultData.Success -> {
                 result.data?.let {

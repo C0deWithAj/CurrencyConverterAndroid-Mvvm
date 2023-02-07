@@ -1,6 +1,6 @@
 package com.aj.currencycalculator.di
 
-import com.aj.currencycalculator.data.mapper.LayersObjectMapper
+import com.aj.currencycalculator.data.mapper.ObjectMapper
 import com.aj.currencycalculator.data.repository.CurrencyDataRepository
 import com.aj.currencycalculator.domain.currrencyconverter.CurrencyConverterUseCase
 import com.aj.currencycalculator.domain.currrencyconverter.CurrencyConverterUseCaseImp
@@ -24,7 +24,7 @@ object UseCaseModule {
     @Provides
     fun providesFetchCurrencyRateUseCase(
         repository: CurrencyDataRepository,
-        mapper: LayersObjectMapper
+        mapper: ObjectMapper
     ): RefreshCurrencyRatesUseCase =
         RefreshCurrencyRatesUseCaseImp(repository, mapper)
 
@@ -32,7 +32,7 @@ object UseCaseModule {
     @Provides
     fun providesSavedCurrencyRateUseCase(
         repository: CurrencyDataRepository,
-        mapper: LayersObjectMapper
+        mapper: ObjectMapper
     ): GetSavedCurrencyRateListUseCase =
         GetSavedCurrencyRateListUseCaseImp(repository, mapper)
 

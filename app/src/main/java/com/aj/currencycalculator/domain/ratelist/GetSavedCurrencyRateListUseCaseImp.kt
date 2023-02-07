@@ -1,6 +1,6 @@
 package com.aj.currencycalculator.domain.ratelist
 
-import com.aj.currencycalculator.data.mapper.LayersObjectMapper
+import com.aj.currencycalculator.data.mapper.ObjectMapper
 import com.aj.currencycalculator.data.model.CurrencyRateUI
 import com.aj.currencycalculator.data.repository.CurrencyDataRepository
 import kotlinx.coroutines.flow.Flow
@@ -12,7 +12,7 @@ import javax.inject.Inject
  */
 class GetSavedCurrencyRateListUseCaseImp @Inject constructor(
     private val repository: CurrencyDataRepository,
-    private val layersObjectMapper: LayersObjectMapper
+    private val layersObjectMapper: ObjectMapper
 ) : GetSavedCurrencyRateListUseCase {
 
     override fun getSavedCurrencyList(): Flow<List<CurrencyRateUI>> = flow {

@@ -4,7 +4,7 @@ import com.aj.currencycalculator.data.db.dao.CurrencyRateDao
 import com.aj.currencycalculator.data.db.dao.CurrencyRateUpdateTimeDao
 import com.aj.currencycalculator.data.db.entity.CurrencyRateEntity
 import com.aj.currencycalculator.data.db.entity.CurrencyRateUpdateTimeEntity
-import com.aj.currencycalculator.data.mapper.LayersObjectMapper
+import com.aj.currencycalculator.data.mapper.ObjectMapper
 import com.aj.currencycalculator.data.model.ResultData
 import com.aj.currencycalculator.data.network.CurrencyAPI
 import com.aj.currencycalculator.data.network.model.toListOfRates
@@ -21,7 +21,7 @@ class CurrencyDataRepositoryImp @Inject constructor(
     private val currencyRateDao: CurrencyRateDao,
     private val currencyTimeDao: CurrencyRateUpdateTimeDao,
     private val currencyConverterAPI: CurrencyAPI,
-    private val networkDaoMapper: LayersObjectMapper
+    private val networkDaoMapper: ObjectMapper
 ) : CurrencyDataRepository {
 
     override suspend fun updateDataFromNetwork(): ResultData<List<CurrencyRateEntity>> {

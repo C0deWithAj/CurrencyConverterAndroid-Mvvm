@@ -14,5 +14,5 @@ class GetCurrencyFetchTimeUseCaseImp @Inject constructor(
     override fun getLastUpdateTime(): Flow<String?> = flow {
         val dateTime = repository.getCurrencyUpdateTime()
         emit(dateTime.updatedAt.toDateTime())
-    }.flowOn(Dispatchers.IO)
+    }
 }
