@@ -28,7 +28,6 @@ class CurrencyConverterUseCaseImp @Inject constructor(
                 val rate = targetCurrencyList.first().rate / baseCurrencyList.first().rate
                 val inputVal = input.removeDotConvertToDouble()
                 inputVal?.let {
-                    Log.i("Test321", "Converted Rate - ${it * rate}")
                     emit(ResultData.Success(it * rate))
                 }
             } else {

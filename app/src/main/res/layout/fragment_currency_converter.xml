@@ -31,8 +31,8 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_swap"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
             android:layout_marginTop="@dimen/_80sdp"
             android:background="@color/light_green_1"
             android:src="@drawable/ic_two_way"
@@ -127,7 +127,6 @@
             app:layout_constraintStart_toStartOf="@+id/spinner_to"
             app:layout_constraintTop_toTopOf="@+id/et_from"
             tools:ignore="SpeakableTextPresentCheck" />
-
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_rates_update_time"

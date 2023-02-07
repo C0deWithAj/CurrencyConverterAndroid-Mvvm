@@ -8,6 +8,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.aj.currencycalculator.R
+import com.aj.currencycalculator.data.model.CurrencyConverterUIState
 import com.aj.currencycalculator.data.model.CurrencyRateUI
 import com.aj.currencycalculator.data.model.ResultData
 import com.aj.currencycalculator.databinding.FragmentCurrencyConverterBinding
@@ -48,12 +49,13 @@ class CurrencyConverterFragment : BaseFragment() {
 
     private fun addObservers() {
         viewModel.currencyList.observe(this.viewLifecycleOwner, currencyListObserver)
+        viewModel.convertedCurrency.observe(this.viewLifecycleOwner, convertedCurrencyObserver)
         viewModel.lastFetchDateTime.observe(this.viewLifecycleOwner) {
             it?.let { time ->
                 binding.lastUpdateDateTime = time
             }
         }
-        viewModel.convertedCurrency.observe(this.viewLifecycleOwner, convertedCurrencyObserver)
+        viewModel.userSelectionState.observe(this.viewLifecycleOwner, userUiStateObserver)
     }
 
     private fun initBindings() {
@@ -65,9 +67,7 @@ class CurrencyConverterFragment : BaseFragment() {
     private fun addViewListeners() {
         binding.etFrom.doAfterTextChanged {
             it?.let { editable ->
-                if (editable.toString().isEmpty()) {
-                    binding.etFrom.append("1")
-                } else {
+                if (!editable.toString().isNullOrEmpty()) {
                     onCurrencyChangedEvent()
                 }
             }
@@ -89,8 +89,8 @@ class CurrencyConverterFragment : BaseFragment() {
 
         binding.btnSwap.setOnClickListener {
             val toCurrencyOld = binding.dropdownToCurrency.text
-            binding.dropdownToCurrency.text = binding.dropdownFromCurrency.text
-            binding.dropdownFromCurrency.text = toCurrencyOld
+            binding.dropdownToCurrency.setText(binding.dropdownFromCurrency.text, false)
+            binding.dropdownFromCurrency.setText(toCurrencyOld, false)
             onCurrencyChangedEvent()
         }
     }
@@ -103,6 +103,7 @@ class CurrencyConverterFragment : BaseFragment() {
         ) {
             return
         }
+
         viewModel.onCurrencyInputChanged(
             binding.etFrom.text.toString(),
             binding.dropdownFromCurrency.text.toString(),
@@ -157,14 +158,24 @@ class CurrencyConverterFragment : BaseFragment() {
                 showError(msg = it.msg)
             }
 
+            is ResultData.Loading -> {
+
+            }
+
             else -> {
                 showError()
             }
         }
     }
 
+    private val userUiStateObserver = Observer<CurrencyConverterUIState?> {
+        binding.dropdownFromCurrency.setText(it.baseCurrency ?: "", false)
+        binding.dropdownToCurrency.setText(it.toCurrency ?: "", false)
+        binding.etFrom.setText(it.inputCurrency ?: "1")
+    }
+
     private fun showError(
-        title: String? = context?.getString(R.string.unknown_error),
+        title: String? = context?.getString(R.string.error),
         msg: String? = context?.getString(R.string.oh_snap)
     ) {
         if (!title.isNullOrEmpty() && !msg.isNullOrEmpty()) {
@@ -182,4 +193,12 @@ class CurrencyConverterFragment : BaseFragment() {
         binding.dropdownFromCurrency.setText("")
     }
 
+    override fun onStop() {
+        super.onStop()
+        viewModel.onStopEvent(
+            inputCurrency = binding.etFrom.text.toString(),
+            baseCurrencyCode = binding.dropdownFromCurrency.text.toString(),
+            binding.dropdownToCurrency.text.toString(),
+        )
+    }
 }

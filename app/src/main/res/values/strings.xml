@@ -5,6 +5,5 @@
     <string name="rates_last_updated">Rates Last Updated: %s</string>
     <string name="refresh_currency_rates">Refresh rates</string>
     <string name="oh_snap">Oh Snap!</string>
-    <string name="unknown_error">An unknown Error has occured</string>
-
+    <string name="error">An Error occurred</string>
 </resources>

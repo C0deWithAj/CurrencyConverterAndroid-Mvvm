@@ -41,7 +41,7 @@ class CurrencyDataRepositoryImp @Inject constructor(
                     return ResultData.Success(daoRates)
                 } ?: run {
                     return ResultData.Failed(
-                        title = "Unknown Error",
+                        title = "Oh Snap!",
                         message = "Server seems busy - Please try again later"
                     )
                 }

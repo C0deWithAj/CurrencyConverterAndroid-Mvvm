@@ -30,7 +30,7 @@ class RefreshCurrencyRatesUseCaseImp @Inject constructor(
                 emit(result)
             }
             else -> {
-                emit(ResultData.Failed("Unknown Error occurred"))
+                emit(ResultData.Failed("Oh Snap! An unknown Error occurred"))
             }
         }
     }

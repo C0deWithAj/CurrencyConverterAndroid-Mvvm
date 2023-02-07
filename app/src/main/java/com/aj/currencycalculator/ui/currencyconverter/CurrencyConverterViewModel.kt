@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aj.currencycalculator.data.model.CurrencyConverterUIState
 import com.aj.currencycalculator.data.model.CurrencyRateUI
 import com.aj.currencycalculator.data.model.ResultData
 import com.aj.currencycalculator.domain.currrencyconverter.CurrencyConverterUseCase
@@ -31,9 +32,14 @@ class CurrencyConverterViewModel @Inject constructor(
     private val _lastFetchDateTime = MutableLiveData<String?>()
     val lastFetchDateTime: LiveData<String?> get() = _lastFetchDateTime
 
-
     private val _convertedCurrency = MutableLiveData<ResultData<Double>>()
     val convertedCurrency: LiveData<ResultData<Double>> get() = _convertedCurrency
+
+    private val _userSelectionState by lazy {
+        MutableLiveData<CurrencyConverterUIState>()
+    }
+    val userSelectionState: LiveData<CurrencyConverterUIState> get() = _userSelectionState
+
 
     init {
         if (sharedPrefHelper.isCurrencyRateSavedOnce()) {
@@ -69,7 +75,7 @@ class CurrencyConverterViewModel @Inject constructor(
             } catch (ex: Exception) {
                 ex.printStackTrace()
                 _currencyList.value =
-                    ResultData.Exception(ex, "An Unknown Error Occurred - ${ex.message}")
+                    ResultData.Exception(ex, "An Error Occurred - ${ex.message}")
             }
         }
     }
@@ -113,4 +119,19 @@ class CurrencyConverterViewModel @Inject constructor(
             }
         }
     }
+
+    //save State on Configuration change
+    fun onStopEvent(
+        inputCurrency: String?,
+        baseCurrencyCode: String?,
+        targetCurrencyCode: String?
+    ) {
+        _userSelectionState.value =
+            CurrencyConverterUIState(
+                baseCurrency = baseCurrencyCode,
+                toCurrency = targetCurrencyCode,
+                inputCurrency
+            )
+    }
+
 }
