@@ -11,3 +11,4 @@ fun String.removeDotConvertToDouble(): Double? {
     }
     return dotRemoved.toDoubleOrNull()
 }
+

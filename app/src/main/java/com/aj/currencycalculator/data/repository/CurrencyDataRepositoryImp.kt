@@ -2,13 +2,16 @@ package com.aj.currencycalculator.data.repository
 
 import com.aj.currencycalculator.data.db.dao.CurrencyRateDao
 import com.aj.currencycalculator.data.db.dao.CurrencyRateUpdateTimeDao
+import com.aj.currencycalculator.data.db.dao.SearchHistoryDao
 import com.aj.currencycalculator.data.db.entity.CurrencyRateEntity
 import com.aj.currencycalculator.data.db.entity.CurrencyRateUpdateTimeEntity
+import com.aj.currencycalculator.data.db.entity.SearchHistoryEntity
 import com.aj.currencycalculator.data.mapper.ObjectMapper
 import com.aj.currencycalculator.data.model.ResultData
 import com.aj.currencycalculator.data.network.CurrencyAPI
 import com.aj.currencycalculator.data.network.model.toListOfRates
 import com.aj.currencycalculator.util.extension.translateToError
+import java.util.Date
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -20,6 +23,7 @@ import javax.inject.Singleton
 class CurrencyDataRepositoryImp @Inject constructor(
     private val currencyRateDao: CurrencyRateDao,
     private val currencyTimeDao: CurrencyRateUpdateTimeDao,
+    private val searchHistoryDao: SearchHistoryDao,
     private val currencyConverterAPI: CurrencyAPI,
     private val networkDaoMapper: ObjectMapper
 ) : CurrencyDataRepository {
@@ -56,6 +60,13 @@ class CurrencyDataRepositoryImp @Inject constructor(
         }
     }
 
+    override suspend fun getHistoryForDate(from: Date, to: Date): List<SearchHistoryEntity>? =
+        searchHistoryDao.getHistoryForDate(from, to)
+
+    override suspend fun insertSearch(searchEntity: SearchHistoryEntity) {
+        searchHistoryDao.insert(searchEntity)
+    }
+
     override suspend fun getCurrencyRateList(): List<CurrencyRateEntity> =
         currencyRateDao.getCurrencyList()
 
@@ -64,4 +75,10 @@ class CurrencyDataRepositoryImp @Inject constructor(
 
     override suspend fun getCurrencyRateList(currencyCode: String): List<CurrencyRateEntity>? =
         currencyRateDao.getCurrencyRate(currencyCode)
+
+    override suspend fun getCurrenciesRateList(currencyCodes: ArrayList<String>): List<CurrencyRateEntity>? =
+        currencyRateDao.getCurrencyRate(currencyCodes)
+
+
+
 }

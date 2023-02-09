@@ -2,10 +2,9 @@ package com.aj.currencycalculator.data.repository
 
 import com.aj.currencycalculator.data.db.entity.CurrencyRateEntity
 import com.aj.currencycalculator.data.db.entity.CurrencyRateUpdateTimeEntity
+import com.aj.currencycalculator.data.db.entity.SearchHistoryEntity
 import com.aj.currencycalculator.data.model.ResultData
-import com.aj.currencycalculator.testutil.MockTestUtil
-import com.aj.currencycalculator.util.extension.translateToError
-import java.io.IOException
+import java.util.*
 
 class FakeCurrencyDataRepository : CurrencyDataRepository {
 
@@ -43,6 +42,10 @@ class FakeCurrencyDataRepository : CurrencyDataRepository {
             System.currentTimeMillis(),
             System.currentTimeMillis()
         )
+    }
+
+    override suspend fun getHistoryForDate(from: Date, to: Date): List<SearchHistoryEntity>? {
+        return null
     }
 
 }

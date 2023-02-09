@@ -1,4 +1,4 @@
-package com.aj.currencycalculator.data.model
+package com.aj.currencycalculator.ui.model
 
 data class CurrencyConverterUIState(
     var baseCurrency: String?,

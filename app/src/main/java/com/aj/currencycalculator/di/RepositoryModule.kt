@@ -2,6 +2,7 @@ package com.aj.currencycalculator.di
 
 import com.aj.currencycalculator.data.db.dao.CurrencyRateDao
 import com.aj.currencycalculator.data.db.dao.CurrencyRateUpdateTimeDao
+import com.aj.currencycalculator.data.db.dao.SearchHistoryDao
 import com.aj.currencycalculator.data.mapper.ObjectMapper
 import com.aj.currencycalculator.data.mapper.ObjectMapperImp
 import com.aj.currencycalculator.data.network.CurrencyAPI
@@ -23,9 +24,16 @@ object RepositoryModule {
         currencyRateDAO: CurrencyRateDao,
         currencyTimeDao: CurrencyRateUpdateTimeDao,
         api: CurrencyAPI,
+        searchHistoryDao: SearchHistoryDao,
         networkDaoMapper: ObjectMapper
     ): CurrencyDataRepository =
-        CurrencyDataRepositoryImp(currencyRateDAO, currencyTimeDao, api, networkDaoMapper)
+        CurrencyDataRepositoryImp(
+            currencyRateDao = currencyRateDAO,
+            currencyTimeDao = currencyTimeDao,
+            searchHistoryDao = searchHistoryDao,
+            api,
+            networkDaoMapper
+        )
 
     @Singleton
     @Provides

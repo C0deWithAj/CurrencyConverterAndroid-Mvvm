@@ -4,7 +4,7 @@ import com.aj.currencycalculator.data.model.ResultData
 import kotlinx.coroutines.flow.Flow
 
 interface CurrencyConverterUseCase {
-    fun calculateCurrency(
+    suspend fun calculateCurrency(
         input: String,
         baseCurrency: String, targetCurrency: String
     ): Flow<ResultData<Double>>

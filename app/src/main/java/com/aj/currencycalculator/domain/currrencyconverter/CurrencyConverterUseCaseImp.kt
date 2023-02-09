@@ -1,5 +1,6 @@
 package com.aj.currencycalculator.domain.currrencyconverter
 
+import android.util.Log
 import com.aj.currencycalculator.data.model.ResultData
 import com.aj.currencycalculator.data.repository.CurrencyDataRepository
 import com.aj.currencycalculator.util.extension.removeDotConvertToDouble
@@ -12,12 +13,10 @@ class CurrencyConverterUseCaseImp @Inject constructor(
     private val repository: CurrencyDataRepository
 ) : CurrencyConverterUseCase {
 
-    override fun calculateCurrency(
+    override suspend fun calculateCurrency(
         input: String,
         baseCurrency: String, targetCurrency: String
-
     ): Flow<ResultData<Double>> = flow {
-        emit(ResultData.Loading())
         val baseCurrencyList = repository.getCurrencyRateList(baseCurrency)
         val targetCurrencyList = repository.getCurrencyRateList(targetCurrency)
         try {
@@ -28,11 +27,11 @@ class CurrencyConverterUseCaseImp @Inject constructor(
                     emit(ResultData.Success(it * rate))
                 }
             } else {
-                emit(ResultData.Failed("Error in Fetching conversion rates - Please try Again"))
+                emit(ResultData.Failed("Currency not found - Please try refreshing data"))
             }
         } catch (ex: Exception) {
             ex.printStackTrace()
-            emit(ResultData.Failed("An Error occurred in calculating currency conversion"))
+            emit(ResultData.Failed("An Error occurred in currency conversion"))
         }
     }
 

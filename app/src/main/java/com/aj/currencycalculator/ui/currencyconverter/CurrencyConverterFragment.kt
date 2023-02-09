@@ -7,16 +7,13 @@ import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.aj.currencycalculator.R
-import com.aj.currencycalculator.data.model.CurrencyConverterUIState
-import com.aj.currencycalculator.data.model.CurrencyRateUI
+import androidx.navigation.fragment.findNavController
+import com.aj.currencycalculator.ui.model.CurrencyConverterUIState
+import com.aj.currencycalculator.ui.model.CurrencyUI
 import com.aj.currencycalculator.data.model.ResultData
 import com.aj.currencycalculator.databinding.FragmentCurrencyConverterBinding
 import com.aj.currencycalculator.ui.base.BaseFragment
-import com.aj.currencycalculator.util.extension.guardLet
-import com.aj.currencycalculator.util.extension.hideKeyboard
-import com.aj.currencycalculator.util.extension.showSnackBar
-import com.aj.currencycalculator.util.extension.toTwoDecimalWithComma
+import com.aj.currencycalculator.util.extension.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,12 +26,11 @@ class CurrencyConverterFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         return FragmentCurrencyConverterBinding.inflate(inflater, container, false).apply {
             binding = this
         }.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -59,7 +55,7 @@ class CurrencyConverterFragment : BaseFragment() {
     }
 
     private fun initBindings() {
-        binding.currenciesList = ArrayList<CurrencyRateUI>()
+        binding.currenciesList = ArrayList<CurrencyUI>()
         binding.lastUpdateDateTime = ""
         binding.viewModel = viewModel
     }
@@ -67,20 +63,20 @@ class CurrencyConverterFragment : BaseFragment() {
     private fun addViewListeners() {
         binding.etFrom.doAfterTextChanged {
             it?.let { editable ->
-                if (!editable.toString().isNullOrEmpty()) {
+                if (editable.toString().isNotEmpty()) {
                     onCurrencyChangedEvent()
                 }
             }
         }
 
-        binding.dropdownFromCurrency.setOnItemClickListener { parent, _, position, _ ->
+        binding.dropdownFromCurrency.setOnItemClickListener { _, _, position, _ ->
             binding.etFrom.hideKeyboard()
             if (position >= 0 && !binding.etFrom.text.isNullOrEmpty() && !binding.dropdownToCurrency.text.isNullOrEmpty()) {
                 onCurrencyChangedEvent()
             }
         }
 
-        binding.dropdownToCurrency.setOnItemClickListener { parent, _, position, _ ->
+        binding.dropdownToCurrency.setOnItemClickListener { _, _, position, _ ->
             binding.etTo.hideKeyboard()
             if (position >= 0 && !binding.etFrom.text.isNullOrEmpty() && !binding.dropdownFromCurrency.text.isNullOrEmpty()) {
                 onCurrencyChangedEvent()
@@ -92,6 +88,28 @@ class CurrencyConverterFragment : BaseFragment() {
             binding.dropdownToCurrency.setText(binding.dropdownFromCurrency.text, false)
             binding.dropdownFromCurrency.setText(toCurrencyOld, false)
             onCurrencyChangedEvent()
+        }
+
+        binding.btnDetails.setOnClickListener {
+            findNavController().apply {
+                val from = binding.dropdownFromCurrency.text.toString()
+                val to = binding.dropdownToCurrency.text.toString()
+                val input = binding.etFrom.text.toString()
+                if (from.isNotEmpty() && to.isNotEmpty() && input.isNotEmpty()) {
+                    val action =
+                        CurrencyConverterFragmentDirections.actionCurrencyConverterFragmentToCurrencyConversionDetailFragment(
+                            baseCurrencyCode = from,
+                            targetCurrencyCode = to,
+                            baseInputValue = input
+                        )
+                    navigate(action)
+                } else {
+                    showError(
+                        title = "Empty Fields",
+                        msg = "Please select currency code and Input a number", binding.parentLayout
+                    )
+                }
+            }
         }
     }
 
@@ -111,7 +129,7 @@ class CurrencyConverterFragment : BaseFragment() {
         )
     }
 
-    private val currencyListObserver = Observer<ResultData<List<CurrencyRateUI>>> {
+    private val currencyListObserver = Observer<ResultData<List<CurrencyUI>>> {
         when (it) {
             is ResultData.Loading -> {
                 showProgressDialog()
@@ -127,17 +145,17 @@ class CurrencyConverterFragment : BaseFragment() {
 
             is ResultData.Failed -> {
                 hideProgressDialog()
-                showError(it.title, msg = it.message)
+                showError(it.title, msg = it.message, binding.parentLayout)
             }
 
             is ResultData.Exception -> {
                 hideProgressDialog()
-                showError(msg = it.msg)
+                showError(msg = it.msg, parent = binding.parentLayout)
             }
 
             else -> {
                 hideProgressDialog()
-                showError()
+                showError(parent = binding.parentLayout)
             }
         }
     }
@@ -151,11 +169,11 @@ class CurrencyConverterFragment : BaseFragment() {
             }
 
             is ResultData.Failed -> {
-                showError(it.title, msg = it.message)
+                showError(it.title, msg = it.message, binding.parentLayout)
             }
 
             is ResultData.Exception -> {
-                showError(msg = it.msg)
+                showError(msg = it.msg, parent = binding.parentLayout)
             }
 
             is ResultData.Loading -> {
@@ -163,7 +181,7 @@ class CurrencyConverterFragment : BaseFragment() {
             }
 
             else -> {
-                showError()
+                showError(parent = binding.parentLayout)
             }
         }
     }
@@ -174,17 +192,6 @@ class CurrencyConverterFragment : BaseFragment() {
         binding.etFrom.setText(it.inputCurrency ?: "1")
     }
 
-    private fun showError(
-        title: String? = context?.getString(R.string.error),
-        msg: String? = context?.getString(R.string.oh_snap)
-    ) {
-        if (!title.isNullOrEmpty() && !msg.isNullOrEmpty()) {
-            binding.parentLayout.showSnackBar(
-                msg,
-                title
-            )
-        }
-    }
 
     private fun resetSelections() {
         binding.etFrom.setText("1")

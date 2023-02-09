@@ -5,13 +5,13 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.databinding.BaseObservable
 import androidx.databinding.BindingAdapter
-import com.aj.currencycalculator.data.model.CurrencyRateUI
+import com.aj.currencycalculator.ui.model.CurrencyUI
 
 object BindingAdapters : BaseObservable() {
 
     @BindingAdapter("loadCurrencies")
     @JvmStatic
-    fun loadCurrencies(txt: AutoCompleteTextView, currencyCode: List<CurrencyRateUI>?) {
+    fun loadCurrencies(txt: AutoCompleteTextView, currencyCode: List<CurrencyUI>?) {
         currencyCode?.map { it.code }?.let {
             txt.setAdapter(
                 ArrayAdapter(
@@ -22,4 +22,22 @@ object BindingAdapters : BaseObservable() {
             )
         }
     }
+    
+//    @BindingAdapter("historyItems")
+//    fun bindingHistoryListItems(recyclerView: RecyclerView, itemViewModels: List<ItemViewModel>?) {
+//        val adapter = getOrCreateAdapter(recyclerView)
+//        adapter.updateItems(itemViewModels)
+//    }
+
+
+//    private fun getOrCreateAdapter(recyclerView: RecyclerView): BindableRecyclerViewAdapter {
+//        return if (recyclerView.adapter != null && recyclerView.adapter is BindableRecyclerViewAdapter) {
+//            recyclerView.adapter as BindableRecyclerViewAdapter
+//        } else {
+//            val bindableRecyclerAdapter = BindableRecyclerViewAdapter()
+//            recyclerView.adapter = bindableRecyclerAdapter
+//            bindableRecyclerAdapter
+//        }
+//    }
+
 }

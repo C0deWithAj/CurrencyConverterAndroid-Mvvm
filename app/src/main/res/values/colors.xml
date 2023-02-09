@@ -13,4 +13,12 @@
     <color name="et_enabled_text_color">#2B2A2A</color>
     <color name="et_disabled_text_color">#4A4A4A</color>
     <color name="light_green_1">#CCF6B5</color>
+
+    <color name="history_card_color">#F8F8F8</color>
+    <color name="search_header_title">#F8F8F8</color>
+    <color name="currency_light_color">#989797</color>
+    <color name="color_dark_color_1">#707070</color>
+    <color name="box_text_color">#575656</color>
+
+
 </resources>

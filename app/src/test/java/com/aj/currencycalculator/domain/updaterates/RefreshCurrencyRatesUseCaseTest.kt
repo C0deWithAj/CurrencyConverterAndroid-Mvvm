@@ -1,6 +1,5 @@
 package com.aj.currencycalculator.domain.updaterates
 
-import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import app.cash.turbine.test
 import com.aj.currencycalculator.data.mapper.ObjectMapperImp
@@ -49,7 +48,6 @@ class RefreshCurrencyRatesUseCaseTest {
             awaitComplete()
         }
     }
-
 
     @Test
     fun `Calling updateDataFromNetwork with Network returns non null list`() = runBlocking {

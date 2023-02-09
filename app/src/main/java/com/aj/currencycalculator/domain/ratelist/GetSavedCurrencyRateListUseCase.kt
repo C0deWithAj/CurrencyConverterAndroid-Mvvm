@@ -1,8 +1,8 @@
 package com.aj.currencycalculator.domain.ratelist
 
-import com.aj.currencycalculator.data.model.CurrencyRateUI
+import com.aj.currencycalculator.ui.model.CurrencyUI
 import kotlinx.coroutines.flow.Flow
 
 interface GetSavedCurrencyRateListUseCase {
-    fun getSavedCurrencyList(): Flow<List<CurrencyRateUI>>
+    fun getSavedCurrencyList(): Flow<List<CurrencyUI>>
 }

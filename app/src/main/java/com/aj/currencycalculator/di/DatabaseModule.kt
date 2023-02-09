@@ -29,4 +29,11 @@ object DatabaseModule {
     fun providesCurrencyConverterDatabase(@ApplicationContext context: Context) =
         Room.databaseBuilder(context, CurrencyDatabase::class.java, AppConstant.DATABASE_NAME)
             .build()
+
+    @Singleton
+    @Provides
+    fun providesHistoryDao(currencyDatabase: CurrencyDatabase) =
+        currencyDatabase.getSearchHistoryDao()
+
+
 }

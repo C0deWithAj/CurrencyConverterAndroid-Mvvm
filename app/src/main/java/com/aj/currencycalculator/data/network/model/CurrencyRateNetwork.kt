@@ -12,6 +12,3 @@ data class CurrencyRateNetwork(
     @Expose val rate: Double = 0.0
 )
 
-fun CurrencyRateNetwork.toDBModel() = CurrencyRateEntity(
-    code = code ?: "", rate = rate
-)
