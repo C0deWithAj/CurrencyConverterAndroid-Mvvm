@@ -2,8 +2,15 @@
 
 ✨ A Currency Converter with MVVM + Clean Architecture using [Fixer API](https://fixer.io/) ✨
 The application is offline first. On Free API. It fetches currency data for first time and then gives users ability to pull new data on demand.
-If the Fixer API had a paid plan, then a WorkManager would be scheduled to fetch new data at a fixed interval e.g "Pull fresh currency rates every 60 minutes: 
 
+
+## Usecase:
+- [Usecase-1]() : Downloads Currency rates from "latest" endpoints and caches in local Database. Displays Date of last update. In case of No internet, user can continue to do currency conversions
+- [Usecase-2](): User can see last X days (currently 3) history of his selections, from "Time-series" endpoint of API in following forms: 
+ - In the Form of list (Requires Internet)
+ - In the form of Graph (Requires Internet)
+- [Usecase-3](): User can see conversion of his current selection into 10 other popular currencies
+- [Unit Test]: So Far unit tests are written for the first Usecase only. I will continue adding unit tests. 
 
 ## Architecture
 
@@ -29,3 +36,16 @@ Uses concepts of the notorious Uncle Bob's architecture called [Clean Architectu
 - [OkHttp](http://square.github.io/okhttp/) - HTTP client that's efficient by default: HTTP/2 support allows all requests to the same host to share a socket
 - [Gson](https://github.com/square/moshi) - Used to convert Java Objects into their JSON representation and vice versa.
 - [Ktlint](https://pinterest.github.io/ktlint/) - ktlint aims to capture the official Kotlin coding conventions and Android Kotlin Style Guide.
+
+## Future Improvements: 
+- Finish writing test cases 
+- Add work Manager to download data on specific intervals
+
+
+## Screenshots:
+![WhatsApp Image 2023-02-10 at 9 11 50 PM](https://user-images.githubusercontent.com/5016570/218141842-7343f755-c4a8-4dc0-8765-b36ac181a9af.jpeg)
+![WhatsApp Image 2023-02-10 at 9 11 45 PM](https://user-images.githubusercontent.com/5016570/218142105-278a931a-0a8c-457d-94b4-4701dbe01350.jpeg)
+![WhatsApp Image 2023-02-10 at 9 11 44 PM (1)](https://user-images.githubusercontent.com/5016570/218142214-0e79b7c8-e148-4249-9adf-66a76aea13d1.jpeg)
+
+
+
