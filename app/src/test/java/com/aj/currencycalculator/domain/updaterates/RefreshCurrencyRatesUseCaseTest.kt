@@ -51,18 +51,17 @@ class RefreshCurrencyRatesUseCaseTest {
 
     @Test
     fun `Calling updateDataFromNetwork with Network returns non null list`() = runBlocking {
-        //Given
+        // Given
         val list = MockTestUtil.getSampleCurrencyRateList()
         fakeDataRepo.setShouldReturnNetworkError(false)
         fakeDataRepo.setCurrencyRateList(list)
-        //Invoke
+        // Invoke
         refreshCurrencyRatesUseCase.refreshCurrencyRateFromAPI().test {
             val flowItem = (awaitItem() as ResultData.Success).data
-            //Then
+            // Then
             MatcherAssert.assertThat(flowItem, CoreMatchers.notNullValue())
             MatcherAssert.assertThat(flowItem!!.size, CoreMatchers.`is`(list.size))
             awaitComplete()
         }
     }
-
 }

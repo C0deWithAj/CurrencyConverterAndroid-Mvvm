@@ -34,7 +34,3 @@ fun CurrencyResponse.toListOfRates(): List<CurrencyRateNetwork>? {
         )
     }
 }
-
-
-
-

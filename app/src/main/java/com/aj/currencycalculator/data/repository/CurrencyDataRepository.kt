@@ -18,7 +18,7 @@ interface CurrencyDataRepository {
     suspend fun getHistoricalData(
         from: Date,
         to: Date
-    ): HashMap<String, List<CurrencyRateNetwork>?>?
+    ): LinkedHashMap<String, List<CurrencyRateNetwork>?>?
 
     suspend fun insertCurrencySearch(currencyCode: String)
 }

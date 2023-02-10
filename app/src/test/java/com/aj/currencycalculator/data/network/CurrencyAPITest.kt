@@ -56,7 +56,7 @@ class CurrencyAPITest : NetworkApiModuleTest<CurrencyAPI>() {
             CoreMatchers.`is`(false)
         )
     }
-    
+
     @Throws(IOException::class)
     @Test
     fun `test getCurrencies() failure returns error code`() = runBlocking {
@@ -71,5 +71,4 @@ class CurrencyAPITest : NetworkApiModuleTest<CurrencyAPI>() {
             CoreMatchers.`is`(201)
         )
     }
-
 }

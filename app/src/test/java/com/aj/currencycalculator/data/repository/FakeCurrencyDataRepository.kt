@@ -4,7 +4,8 @@ import com.aj.currencycalculator.data.db.entity.CurrencyRateEntity
 import com.aj.currencycalculator.data.db.entity.CurrencyRateUpdateTimeEntity
 import com.aj.currencycalculator.data.db.entity.SearchHistoryEntity
 import com.aj.currencycalculator.data.model.ResultData
-import java.util.*
+import com.aj.currencycalculator.data.network.model.currencylist.CurrencyRateNetwork
+import java.util.Date
 
 class FakeCurrencyDataRepository : CurrencyDataRepository {
 
@@ -18,7 +19,6 @@ class FakeCurrencyDataRepository : CurrencyDataRepository {
     fun setCurrencyRateList(rateList: List<CurrencyRateEntity>) {
         this.currencyRateList = rateList
     }
-
 
     override suspend fun updateDataFromNetwork(): ResultData<List<CurrencyRateEntity>> {
         return if (shouldReturnNetworkError) {
@@ -48,4 +48,22 @@ class FakeCurrencyDataRepository : CurrencyDataRepository {
         return null
     }
 
+    override suspend fun insertSearch(searchEntity: SearchHistoryEntity) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getCurrenciesRateList(currencyCodes: ArrayList<String>): List<CurrencyRateEntity>? {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getHistoricalData(
+        from: Date,
+        to: Date
+    ): LinkedHashMap<String, List<CurrencyRateNetwork>?>? {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun insertCurrencySearch(currencyCode: String) {
+        TODO("Not yet implemented")
+    }
 }

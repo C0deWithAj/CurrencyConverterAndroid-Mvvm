@@ -6,9 +6,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import com.aj.currencycalculator.R
 import com.aj.currencycalculator.databinding.RowPopularCurrencyBinding
-import com.aj.currencycalculator.ui.base.BaseListAdapter
 import com.aj.currencycalculator.domain.model.ConvertedConversion
 import com.aj.currencycalculator.domain.model.Currency
+import com.aj.currencycalculator.ui.base.BaseListAdapter
 
 class PopularCurrencyAdapter(
     private val baseCurrency: Currency,
@@ -48,4 +48,3 @@ val diffCallback: DiffUtil.ItemCallback<ConvertedConversion> =
             return false
         }
     }
-

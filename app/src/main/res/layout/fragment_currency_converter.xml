@@ -8,7 +8,7 @@
         <import type="android.view.View" />
 
         <import type="java.util.List" />
-        
+
         <variable
             name="currenciesList"
             type=" List&lt;com.aj.currencycalculator.domain.model.Currency&gt;" />
@@ -20,7 +20,6 @@
         <variable
             name="viewModel"
             type="com.aj.currencycalculator.ui.currencyconverter.CurrencyConverterViewModel" />
-
     </data>
 
     <androidx.core.widget.NestedScrollView

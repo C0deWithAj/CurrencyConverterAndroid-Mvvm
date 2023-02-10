@@ -18,7 +18,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.nio.charset.StandardCharsets
 
-
 @RunWith(JUnit4::class)
 abstract class NetworkApiModuleTest<T> {
     @Rule

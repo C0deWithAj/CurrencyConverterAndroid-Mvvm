@@ -13,7 +13,7 @@ class SearchHistoryUseCaseImp @Inject constructor(
     private val repository: CurrencyDataRepository,
     private val dataMapper: ObjectMapper
 ) : SearchHistoryUseCase {
-    
+
     override suspend fun getHistoryForDays(lastDays: Int): ResultData<List<SearchHistoryUI.SearchHistory>?> {
         try {
             val yesterday = DateTimeUtil.getMillisOfLastXDays(1)
@@ -36,5 +36,4 @@ class SearchHistoryUseCaseImp @Inject constructor(
     override suspend fun insert(searchHistoryUI: SearchHistoryUI.SearchHistory) {
         repository.insertSearch(searchHistoryUI.toEntityModel())
     }
-
 }

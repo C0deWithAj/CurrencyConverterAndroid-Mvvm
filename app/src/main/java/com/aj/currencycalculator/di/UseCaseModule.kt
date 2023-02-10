@@ -74,9 +74,8 @@ object UseCaseModule {
     @Singleton
     @Provides
     fun provideConversionHistoryUseCase(
-        repository: CurrencyDataRepository, mapper: ObjectMapper
+        repository: CurrencyDataRepository,
+        mapper: ObjectMapper
     ): CurrencyHistoryUseCase =
         CurrencyHistoryUseCaseImp(repository, mapper)
 }
-
-

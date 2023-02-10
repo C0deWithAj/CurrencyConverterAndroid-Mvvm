@@ -13,7 +13,7 @@ import com.aj.currencycalculator.data.db.entity.CurrencyRateEntity
 import com.aj.currencycalculator.data.db.entity.CurrencyRateUpdateTimeEntity
 import com.aj.currencycalculator.data.db.entity.SearchHistoryEntity
 
-//TODO: Remove history DAO
+// TODO: Remove history DAO
 @Database(
     entities = [CurrencyRateEntity::class, CurrencyRateUpdateTimeEntity::class, SearchHistoryEntity::class, CurrencyHistoryEntity::class],
     version = 1
@@ -25,4 +25,3 @@ abstract class CurrencyDatabase : RoomDatabase() {
     abstract fun getSearchHistoryDao(): SearchHistoryDao
     abstract fun getCurrencyHistoryDao(): CurrencyHistoryDao
 }
-

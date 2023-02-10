@@ -1,7 +1,6 @@
 package com.aj.currencycalculator.ui.currencydetail
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,11 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.aj.currencycalculator.data.model.ResultData
 import com.aj.currencycalculator.domain.conversionhistory.SearchHistoryUseCase
 import com.aj.currencycalculator.domain.currencyhistory.CurrencyHistoryUseCase
+import com.aj.currencycalculator.domain.model.*
 import com.aj.currencycalculator.domain.popularcurrencies.PopularCurrenciesUseCase
-import com.aj.currencycalculator.domain.model.Currency
-import com.aj.currencycalculator.domain.model.HistoricalData
-import com.aj.currencycalculator.domain.model.PopularCurrenciesConversion
-import com.aj.currencycalculator.domain.model.SearchHistoryUI
 import com.aj.currencycalculator.util.AppConstant
 import com.aj.currencycalculator.util.DateTimeUtil
 import com.aj.currencycalculator.util.extension.removeDotConvertToDouble
@@ -35,7 +31,7 @@ class CurrencyConversionDetailViewModel @Inject constructor(
     val searchHistoryList: LiveData<ResultData<List<SearchHistoryUI>>>
         get() = _searchHistoryList
 
-    private val _historicalData = MutableLiveData<ResultData<List<HistoricalData>?>>()
+    private val _historicalData = MutableLiveData<ResultData<HistoricalDataGroup?>>()
     val historicalData get() = _historicalData
 
     private
@@ -47,46 +43,6 @@ class CurrencyConversionDetailViewModel @Inject constructor(
     init {
         loadHistoricalData(AppConstant.SEARCH_HISTORICAL_DAYS)
     }
-
-    private fun loadSearchHistoryData() {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val result =
-                    searchHistoryUseCase.getHistoryForDays(AppConstant.SEARCH_HISTORICAL_DAYS)
-                when (result) {
-                    is ResultData.Success -> {
-                        result.data?.let {
-                            _searchHistoryList.postValue(
-                                ResultData.Success(
-                                    prepareListDataThroughDate(
-                                        it,
-                                        AppConstant.SEARCH_HISTORICAL_DAYS
-                                    )
-                                )
-                            )
-                        }
-                    }
-
-                    is ResultData.Failed -> {
-                        _searchHistoryList.postValue(result)
-                    }
-
-                    is ResultData.Exception -> {
-                        _searchHistoryList.postValue(result)
-                    }
-
-                    else -> {
-
-                    }
-                }
-
-            } catch (ex: Exception) {
-                ex.printStackTrace()
-                _searchHistoryList.postValue(ex.translateToError())
-            }
-        }
-    }
-
 
     /**
      * Prepare list of search queries w.r.t day Header
@@ -107,7 +63,7 @@ class CurrencyConversionDetailViewModel @Inject constructor(
                     sdf.format(searchHistory.dateTime).equals(sdf.format(dateOfDay))
                 }
                 listOfData = remaining
-                //Prepare result list of header - Data
+                // Prepare result list of header - Data
                 if (desired.isNotEmpty()) {
                     val header = SearchHistoryUI.DateHeader(DateTimeUtil.getDate(dateOfDay))
                     result.add(header)
@@ -138,7 +94,8 @@ class CurrencyConversionDetailViewModel @Inject constructor(
                             Currency(
                                 baseCurrencyCode,
                                 baseCurrencyUserInput.removeDotConvertToDouble() ?: 0.0
-                            ), it
+                            ),
+                            it
                         )
                         _popularCurrencies.postValue(ResultData.Success(popularCurrenciesConversions))
                     } ?: run {
@@ -165,7 +122,6 @@ class CurrencyConversionDetailViewModel @Inject constructor(
                 }
 
                 else -> {
-
                 }
             }
         }
@@ -174,6 +130,7 @@ class CurrencyConversionDetailViewModel @Inject constructor(
     private fun loadHistoricalData(numOfDays: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
+                historicalData.postValue(ResultData.Loading())
                 val result = currencyConverterUseCase.getHistoryForDays(numOfDays)
                 historicalData.postValue(result)
             } catch (ex: Exception) {
@@ -181,5 +138,4 @@ class CurrencyConversionDetailViewModel @Inject constructor(
             }
         }
     }
-
 }

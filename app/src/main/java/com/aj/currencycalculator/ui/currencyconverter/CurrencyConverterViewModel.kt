@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aj.currencycalculator.domain.model.CurrencyConverterState
-import com.aj.currencycalculator.domain.model.Currency
 import com.aj.currencycalculator.data.model.ResultData
 import com.aj.currencycalculator.domain.currencyhistory.CurrencyHistoryUseCase
 import com.aj.currencycalculator.domain.currrencyconverter.CurrencyConverterUseCase
+import com.aj.currencycalculator.domain.model.Currency
+import com.aj.currencycalculator.domain.model.CurrencyConverterState
 import com.aj.currencycalculator.domain.ratelist.GetSavedCurrencyRateListUseCase
 import com.aj.currencycalculator.domain.updatedtime.GetCurrencyFetchTimeUseCase
 import com.aj.currencycalculator.domain.updaterates.RefreshCurrencyRatesUseCase
@@ -141,7 +141,7 @@ class CurrencyConverterViewModel @Inject constructor(
         }
     }
 
-    //save State on Configuration change
+    // save State on Configuration change
     fun onStopEvent(
         inputCurrency: String?,
         baseCurrencyCode: String?,
@@ -154,5 +154,4 @@ class CurrencyConverterViewModel @Inject constructor(
                 inputCurrency
             )
     }
-
 }

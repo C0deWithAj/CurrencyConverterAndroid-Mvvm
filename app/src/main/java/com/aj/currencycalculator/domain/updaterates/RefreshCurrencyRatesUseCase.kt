@@ -1,7 +1,7 @@
 package com.aj.currencycalculator.domain.updaterates
 
-import com.aj.currencycalculator.domain.model.Currency
 import com.aj.currencycalculator.data.model.ResultData
+import com.aj.currencycalculator.domain.model.Currency
 import kotlinx.coroutines.flow.Flow
 
 /**

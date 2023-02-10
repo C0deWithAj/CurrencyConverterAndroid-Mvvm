@@ -2,7 +2,6 @@ package com.aj.currencycalculator.data.network.model.timeseries
 
 import com.aj.currencycalculator.data.network.model.CurrencyAPIError
 import com.aj.currencycalculator.data.network.model.currencylist.CurrencyRateNetwork
-import com.aj.currencycalculator.data.network.model.currencylist.CurrencyResponse
 import com.google.gson.JsonObject
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
@@ -31,7 +30,6 @@ data class TimeSeriesResponse(
     val error: CurrencyAPIError?
 )
 
-
 data class DateRateJson(val date: String, val ratesMap: JsonObject?)
 
 fun TimeSeriesResponse.toDateListJson(): List<DateRateJson>? {
@@ -39,7 +37,6 @@ fun TimeSeriesResponse.toDateListJson(): List<DateRateJson>? {
         DateRateJson(date = it.key, ratesMap = it.value.asJsonObject)
     }
 }
-
 
 fun DateRateJson.toListOfRates(): List<CurrencyRateNetwork>? {
     return this.ratesMap?.asMap()?.map {
@@ -49,9 +46,3 @@ fun DateRateJson.toListOfRates(): List<CurrencyRateNetwork>? {
         )
     }
 }
-
-
-
-
-
-

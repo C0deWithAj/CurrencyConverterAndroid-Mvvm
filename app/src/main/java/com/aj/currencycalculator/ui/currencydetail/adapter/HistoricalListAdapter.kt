@@ -7,9 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aj.currencycalculator.R
 import com.aj.currencycalculator.databinding.RowSearchHistoryBinding
 import com.aj.currencycalculator.databinding.RowSearchHistoryHeaderBinding
+import com.aj.currencycalculator.domain.model.Currency
 import com.aj.currencycalculator.domain.model.HistoricalData
 
-class HistoricalListAdapter(private val list: List<HistoricalData>?) :
+class HistoricalListAdapter(
+    private val list: List<HistoricalData>?,
+    private val baseCurrency: Currency,
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -46,10 +50,9 @@ class HistoricalListAdapter(private val list: List<HistoricalData>?) :
             }
 
             is HistoricalData.Currency -> {
-                (holder as ViewHolderSearchHistory).bind(data)
+                (holder as ViewHolderSearchHistory).bind(data, baseCurrency)
             }
             else -> {
-
             }
         }
     }
@@ -87,13 +90,10 @@ class HistoricalListAdapter(private val list: List<HistoricalData>?) :
             this.itemRowBinding = itemRowBinding
         }
 
-        fun bind(currency: HistoricalData.Currency) {
+        fun bind(currency: HistoricalData.Currency, baseCurrency: Currency) {
             itemRowBinding.history = currency
-//            itemRowBinding.setVariable(BR.history, obj)
+            itemRowBinding.baseCurrency = baseCurrency
             itemRowBinding.executePendingBindings()
         }
     }
 }
-
-
-

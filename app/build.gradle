@@ -110,6 +110,8 @@ dependencies {
     //SDP
     implementation "com.intuit.sdp:sdp-android:$sdp_version"
 
+    implementation(files("libs/mp-chart-lib.aar"))
+
 
     //Unit test
     testImplementation 'junit:junit:4.13.2'

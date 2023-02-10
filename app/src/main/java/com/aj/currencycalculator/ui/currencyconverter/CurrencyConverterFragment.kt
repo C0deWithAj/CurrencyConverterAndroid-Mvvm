@@ -8,10 +8,10 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.aj.currencycalculator.domain.model.CurrencyConverterState
-import com.aj.currencycalculator.domain.model.Currency
 import com.aj.currencycalculator.data.model.ResultData
 import com.aj.currencycalculator.databinding.FragmentCurrencyConverterBinding
+import com.aj.currencycalculator.domain.model.Currency
+import com.aj.currencycalculator.domain.model.CurrencyConverterState
 import com.aj.currencycalculator.ui.base.BaseFragment
 import com.aj.currencycalculator.util.extension.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +31,6 @@ class CurrencyConverterFragment : BaseFragment() {
             binding = this
         }.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -96,13 +95,11 @@ class CurrencyConverterFragment : BaseFragment() {
         binding.btnDetails.setOnClickListener {
             findNavController().apply {
                 val from = binding.dropdownFromCurrency.text.toString()
-                val to = binding.dropdownToCurrency.text.toString()
                 val input = binding.etFrom.text.toString()
-                if (from.isNotEmpty() && to.isNotEmpty() && input.isNotEmpty()) {
+                if (from.isNotEmpty() && input.isNotEmpty()) {
                     val action =
                         CurrencyConverterFragmentDirections.actionCurrencyConverterFragmentToCurrencyConversionDetailFragment(
                             baseCurrencyCode = from,
-                            targetCurrencyCode = to,
                             baseInputValue = input
                         )
                     navigate(action)
@@ -180,7 +177,6 @@ class CurrencyConverterFragment : BaseFragment() {
             }
 
             is ResultData.Loading -> {
-
             }
 
             else -> {

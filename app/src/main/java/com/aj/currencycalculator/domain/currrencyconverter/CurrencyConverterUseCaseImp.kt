@@ -1,6 +1,5 @@
 package com.aj.currencycalculator.domain.currrencyconverter
 
-import android.util.Log
 import com.aj.currencycalculator.data.model.ResultData
 import com.aj.currencycalculator.data.repository.CurrencyDataRepository
 import com.aj.currencycalculator.util.extension.removeDotConvertToDouble
@@ -8,14 +7,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-
 class CurrencyConverterUseCaseImp @Inject constructor(
     private val repository: CurrencyDataRepository
 ) : CurrencyConverterUseCase {
 
     override suspend fun calculateCurrency(
         input: String,
-        baseCurrency: String, targetCurrency: String
+        baseCurrency: String,
+        targetCurrency: String
     ): Flow<ResultData<Double>> = flow {
         val baseCurrencyList = repository.getCurrencyRateList(baseCurrency)
         val targetCurrencyList = repository.getCurrencyRateList(targetCurrency)
@@ -34,5 +33,4 @@ class CurrencyConverterUseCaseImp @Inject constructor(
             emit(ResultData.Failed("An Error occurred in currency conversion"))
         }
     }
-
 }

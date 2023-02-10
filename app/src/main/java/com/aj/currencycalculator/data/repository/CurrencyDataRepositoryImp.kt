@@ -72,12 +72,12 @@ class CurrencyDataRepositoryImp @Inject constructor(
     override suspend fun getHistoricalData(
         from: Date,
         to: Date
-    ): HashMap<String, List<CurrencyRateNetwork>?>? {
+    ): LinkedHashMap<String, List<CurrencyRateNetwork>?> {
         val apiResponse = callTimeSeriesAPI(from, to)
-        var result = HashMap<String, List<CurrencyRateNetwork>?>()
-        apiResponse?.let { apiResponse ->
-            if (apiResponse.success) {
-                val dateListJson = apiResponse.toDateListJson()
+        var result = LinkedHashMap<String, List<CurrencyRateNetwork>?>()
+        apiResponse?.let { response ->
+            if (response.success) {
+                val dateListJson = response.toDateListJson()
                 result = getDateCurrencyRatesHashMap(dateListJson)
             }
         }
@@ -88,8 +88,8 @@ class CurrencyDataRepositoryImp @Inject constructor(
      * Maps Json of currencies w.r.t date
      * returns@ HashMap of <Date,ListCurrencyRateNetwork>
      */
-    private fun getDateCurrencyRatesHashMap(list: List<DateRateJson>?): HashMap<String, List<CurrencyRateNetwork>?> {
-        val result = HashMap<String, List<CurrencyRateNetwork>?>()
+    private fun getDateCurrencyRatesHashMap(list: List<DateRateJson>?): LinkedHashMap<String, List<CurrencyRateNetwork>?> {
+        val result = LinkedHashMap<String, List<CurrencyRateNetwork>?>()
         list?.let {
             for (dateJsonObj in list) {
                 val date = dateJsonObj.date
@@ -137,6 +137,4 @@ class CurrencyDataRepositoryImp @Inject constructor(
 
     override suspend fun getCurrenciesRateList(currencyCodes: ArrayList<String>): List<CurrencyRateEntity>? =
         currencyRateDao.getCurrencyRate(currencyCodes)
-
-
 }

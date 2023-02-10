@@ -13,6 +13,4 @@ class StringUtil @Inject constructor(val context: Context) {
             message = context.getString(R.string.error)
         )
     }
-
-
 }

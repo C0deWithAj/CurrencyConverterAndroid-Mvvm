@@ -18,6 +18,8 @@ buildscript {
         apache_version = "3.12.0"
         okhttp_version = "5.0.0-alpha.7"
         nav_version = "2.5.3"
+        mpchart_version = "3.1.0"
+
     }
 
     dependencies {

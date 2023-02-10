@@ -23,10 +23,8 @@ interface CurrencyRateDao {
         currencyCode: String,
     ): List<CurrencyRateEntity>
 
-
     @Query("SELECT * FROM CurrencyRateEntity WHERE code IN (:currencyCodes)")
     suspend fun getCurrencyRate(
         currencyCodes: List<String>,
     ): List<CurrencyRateEntity>
-
 }

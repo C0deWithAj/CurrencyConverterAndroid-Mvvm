@@ -1,7 +1,6 @@
 package com.aj.currencycalculator.ui.currencydetail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aj.currencycalculator.data.model.ResultData
 import com.aj.currencycalculator.databinding.FragmentCurrencyConversionDetailBinding
-import com.aj.currencycalculator.domain.model.HistoricalData
+import com.aj.currencycalculator.domain.model.*
 import com.aj.currencycalculator.ui.base.BaseFragment
-import com.aj.currencycalculator.ui.currencydetail.adapter.PopularCurrencyAdapter
-import com.aj.currencycalculator.domain.model.PopularCurrenciesConversion
-import com.aj.currencycalculator.domain.model.SearchHistoryUI
 import com.aj.currencycalculator.ui.currencydetail.adapter.HistoricalListAdapter
+import com.aj.currencycalculator.ui.currencydetail.adapter.PopularCurrencyAdapter
 import com.aj.currencycalculator.util.AppConstant
 import com.aj.currencycalculator.util.extension.makeGone
 import com.aj.currencycalculator.util.extension.makeVisible
@@ -28,7 +25,7 @@ class CurrencyConversionDetailFragment : BaseFragment() {
 
     private val viewModel: CurrencyConversionDetailViewModel by viewModels()
     private lateinit var binding: FragmentCurrencyConversionDetailBinding
-    val args: CurrencyConversionDetailFragmentArgs by navArgs()
+    private val args: CurrencyConversionDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,7 +47,6 @@ class CurrencyConversionDetailFragment : BaseFragment() {
     private fun init() {
         val baseCurrency = args.baseCurrencyCode
         val baseInput = args.baseInputValue
-        val targetCurrency = args.targetCurrencyCode
         addObservers()
         if (!baseCurrency.isNullOrEmpty() && !baseInput.isNullOrEmpty()) {
             viewModel.loadPopularCurrencies(baseCurrency, baseInput, AppConstant.FAMOUS_CURRENCIES)
@@ -65,7 +61,6 @@ class CurrencyConversionDetailFragment : BaseFragment() {
         when (it) {
             is ResultData.Success -> {
                 it.data?.let { _ ->
-
                 }
             }
 
@@ -78,7 +73,6 @@ class CurrencyConversionDetailFragment : BaseFragment() {
             }
 
             is ResultData.Loading -> {
-
             }
 
             else -> {
@@ -106,7 +100,6 @@ class CurrencyConversionDetailFragment : BaseFragment() {
             }
 
             is ResultData.Loading -> {
-
             }
 
             else -> {
@@ -115,13 +108,14 @@ class CurrencyConversionDetailFragment : BaseFragment() {
         }
     }
 
-
-    private val historicalDataObserver = Observer<ResultData<List<HistoricalData>?>> {
+    private val historicalDataObserver = Observer<ResultData<HistoricalDataGroup?>> {
         when (it) {
             is ResultData.Success -> {
                 binding.progressHistory.makeGone()
                 it.data?.let { data ->
-                    loadHistoricalCurrenciesAdapter(data)
+                    val listHistory = data.list
+                    if (listHistory.isNotEmpty())
+                        loadHistoricalCurrenciesAdapter(listHistory, AppConstant.BASE_CURRENCY, 1.0)
                 }
             }
 
@@ -154,22 +148,29 @@ class CurrencyConversionDetailFragment : BaseFragment() {
                 RecyclerView.VERTICAL,
                 false
             )
+            binding.recyclerviewPopularCurrencis.setHasFixedSize(true)
             binding.recyclerviewPopularCurrencis.adapter = adapter
             adapter.submitList(popularCurrenciesConversionUI.convertedCurrencies)
         }
     }
 
-    private fun loadHistoricalCurrenciesAdapter(historicalList: List<HistoricalData>?) {
+    private fun loadHistoricalCurrenciesAdapter(
+        historicalList: List<HistoricalData>?,
+        baseCurrencyCode: String,
+        baseCurrencyVal: Double
+    ) {
         if (!historicalList.isNullOrEmpty()) {
-            val adapter = HistoricalListAdapter(historicalList)
-            binding.recyclerView.layoutManager = LinearLayoutManager(
+            val adapter = HistoricalListAdapter(
+                historicalList,
+                Currency(code = baseCurrencyCode, baseCurrencyVal)
+            )
+            binding.recyclerViewHistoricaldata.layoutManager = LinearLayoutManager(
                 context,
                 RecyclerView.VERTICAL,
                 false
             )
-            binding.recyclerView.adapter = adapter
+            binding.recyclerViewHistoricaldata.setHasFixedSize(true)
+            binding.recyclerViewHistoricaldata.adapter = adapter
         }
     }
-
-
 }

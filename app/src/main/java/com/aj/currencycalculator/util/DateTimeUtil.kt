@@ -1,7 +1,6 @@
 package com.aj.currencycalculator.util
 
 import android.annotation.SuppressLint
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -9,15 +8,14 @@ class DateTimeUtil {
 
     companion object {
 
-        //TODO: Remove
+        // TODO: Remove
         @SuppressLint("SimpleDateFormat")
         fun getMillisOfLastXDays(days: Int): Date? {
-            val day = -days;
+            val day = -days
             val cal: Calendar = Calendar.getInstance()
             cal.add(Calendar.DAY_OF_YEAR, day)
             return Date(cal.timeInMillis)
         }
-
 
         fun getDate(date: Date?): String? {
             date?.let {
@@ -34,8 +32,5 @@ class DateTimeUtil {
             }
             return ""
         }
-
     }
-
-
 }

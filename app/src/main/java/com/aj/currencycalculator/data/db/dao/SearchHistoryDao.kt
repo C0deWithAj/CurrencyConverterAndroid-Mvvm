@@ -15,8 +15,7 @@ interface SearchHistoryDao {
 
     @Query("SELECT * FROM SearchHistoryEntity WHERE date BETWEEN :from AND :to")
     suspend fun getHistoryForDate(
-        from: Date, to: Date
+        from: Date,
+        to: Date
     ): List<SearchHistoryEntity>
-
 }
-

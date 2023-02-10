@@ -39,5 +39,4 @@ object DatabaseModule {
     @Provides
     fun provideCurrencyHistoryDao(currencyDatabase: CurrencyDatabase) =
         currencyDatabase.getCurrencyHistoryDao()
-
 }

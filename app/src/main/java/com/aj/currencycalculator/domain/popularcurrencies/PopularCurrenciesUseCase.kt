@@ -9,5 +9,4 @@ interface PopularCurrenciesUseCase {
         userInputOfBaseCurrency: String,
         resultCurrencyCodes: ArrayList<String>
     ): ResultData<List<ConvertedConversion>?>
-
 }

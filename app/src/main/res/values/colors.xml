@@ -21,6 +21,8 @@
     <color name="box_text_color">#575656</color>
     <color name="history_card_bg">#4DE8FFF0</color>
     <color name="light_gray_2">#9C9B9B</color>
+    <color name="date_header">#BFBEBE</color>
+    <color name="color_grey_3">#AAA5A5</color>
 
 
 </resources>

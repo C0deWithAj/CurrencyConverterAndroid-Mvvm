@@ -1,8 +1,8 @@
 package com.aj.currencycalculator.domain.ratelist
 
 import com.aj.currencycalculator.data.mapper.ObjectMapper
-import com.aj.currencycalculator.domain.model.Currency
 import com.aj.currencycalculator.data.repository.CurrencyDataRepository
+import com.aj.currencycalculator.domain.model.Currency
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

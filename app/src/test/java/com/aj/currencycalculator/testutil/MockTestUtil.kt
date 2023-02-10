@@ -17,5 +17,4 @@ object MockTestUtil {
     fun getNoInternetError(): ResultData.Exception {
         return IOException().translateToError()
     }
-
 }

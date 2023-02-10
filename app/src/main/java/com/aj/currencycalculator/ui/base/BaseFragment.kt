@@ -28,7 +28,8 @@ open class BaseFragment : Fragment() {
 
     protected fun showError(
         title: String? = context?.getString(R.string.error),
-        msg: String? = context?.getString(R.string.oh_snap), parent: View
+        msg: String? = context?.getString(R.string.oh_snap),
+        parent: View
     ) {
         if (!title.isNullOrEmpty() && !msg.isNullOrEmpty()) {
             parent.showSnackBar(

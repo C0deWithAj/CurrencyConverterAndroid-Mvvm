@@ -22,13 +22,12 @@ object BindingAdapters : BaseObservable() {
             )
         }
     }
-    
+
 //    @BindingAdapter("historyItems")
 //    fun bindingHistoryListItems(recyclerView: RecyclerView, itemViewModels: List<ItemViewModel>?) {
 //        val adapter = getOrCreateAdapter(recyclerView)
 //        adapter.updateItems(itemViewModels)
 //    }
-
 
 //    private fun getOrCreateAdapter(recyclerView: RecyclerView): BindableRecyclerViewAdapter {
 //        return if (recyclerView.adapter != null && recyclerView.adapter is BindableRecyclerViewAdapter) {
@@ -39,5 +38,4 @@ object BindingAdapters : BaseObservable() {
 //            bindableRecyclerAdapter
 //        }
 //    }
-
 }

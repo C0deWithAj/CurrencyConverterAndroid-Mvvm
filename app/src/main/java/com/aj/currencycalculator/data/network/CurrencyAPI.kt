@@ -20,5 +20,4 @@ interface CurrencyAPI {
         @Query("symbols") csvSymbols: String,
         @Query("base") source: String = AppConstant.BASE_CURRENCY
     ): TimeSeriesResponse
-
 }

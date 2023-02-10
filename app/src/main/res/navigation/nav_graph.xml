@@ -23,10 +23,6 @@
                 app:argType="string"
                 app:nullable="true" />
 
-            <argument
-                android:name="target_currency_code"
-                app:argType="string"
-                app:nullable="true" />
         </action>
     </fragment>
 
@@ -45,9 +41,5 @@
             app:argType="string"
             app:nullable="true" />
 
-        <argument
-            android:name="target_currency_code"
-            app:argType="string"
-            app:nullable="true" />
     </fragment>
 </navigation>

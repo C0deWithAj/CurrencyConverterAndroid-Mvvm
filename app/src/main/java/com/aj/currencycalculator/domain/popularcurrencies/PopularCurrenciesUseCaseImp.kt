@@ -7,7 +7,6 @@ import com.aj.currencycalculator.util.extension.removeDotConvertToDouble
 import com.aj.currencycalculator.util.extension.translateToError
 import javax.inject.Inject
 
-
 class PopularCurrenciesUseCaseImp @Inject constructor(
     private val repository: CurrencyDataRepository
 ) :
@@ -45,5 +44,4 @@ class PopularCurrenciesUseCaseImp @Inject constructor(
         }
         return ResultData.Success(result)
     }
-
 }
