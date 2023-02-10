@@ -10,7 +10,7 @@ The application is offline first. On Free API. It fetches currency data for firs
  - In the Form of list (Requires Internet)
  - In the form of Graph (Requires Internet)
 - [Usecase-3](): User can see conversion of his current selection into 10 other popular currencies
-- [Unit Test]: So Far unit tests are written for the first Usecase only. I will continue adding unit tests. 
+- [Unit Test](): So Far unit tests are written for the first Usecase only. I will continue adding unit tests. 
 
 ## Architecture
 
@@ -36,6 +36,11 @@ Uses concepts of the notorious Uncle Bob's architecture called [Clean Architectu
 - [OkHttp](http://square.github.io/okhttp/) - HTTP client that's efficient by default: HTTP/2 support allows all requests to the same host to share a socket
 - [Gson](https://github.com/square/moshi) - Used to convert Java Objects into their JSON representation and vice versa.
 - [Ktlint](https://pinterest.github.io/ktlint/) - ktlint aims to capture the official Kotlin coding conventions and Android Kotlin Style Guide.
+Testing 
+- [Google-truth](https://github.com/google/truth) - Google Truth 
+- [Mockito](https://site.mockito.org/) - Mockito
+- [JUnit]() JUnit
+
 
 ## Future Improvements: 
 - Finish writing test cases 
