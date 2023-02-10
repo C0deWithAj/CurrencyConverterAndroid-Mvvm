@@ -1,11 +1,9 @@
 package com.aj.currencycalculator.domain.popularcurrencies
 
-import android.util.Log
 import com.aj.currencycalculator.data.model.ResultData
 import com.aj.currencycalculator.data.repository.CurrencyDataRepository
-import com.aj.currencycalculator.ui.model.ConvertedConversionUI
+import com.aj.currencycalculator.domain.model.ConvertedConversion
 import com.aj.currencycalculator.util.extension.removeDotConvertToDouble
-import com.aj.currencycalculator.util.extension.toTwoDecimalWithComma
 import com.aj.currencycalculator.util.extension.translateToError
 import javax.inject.Inject
 
@@ -18,8 +16,8 @@ class PopularCurrenciesUseCaseImp @Inject constructor(
         baseCurrency: String,
         userInputOfBaseCurrency: String,
         resultCurrencyCodes: ArrayList<String>
-    ): ResultData<List<ConvertedConversionUI>?> {
-        val result = arrayListOf<ConvertedConversionUI>()
+    ): ResultData<List<ConvertedConversion>?> {
+        val result = arrayListOf<ConvertedConversion>()
         try {
             val arrayList = repository.getCurrenciesRateList(resultCurrencyCodes)
             val baseCurrencyList = repository.getCurrencyRateList(baseCurrency)
@@ -31,7 +29,7 @@ class PopularCurrenciesUseCaseImp @Inject constructor(
                         userInput?.let { userInputVal ->
                             val convertedRate = userInputVal * rate
                             result.add(
-                                ConvertedConversionUI(
+                                ConvertedConversion(
                                     targetCurrency.code,
                                     targetCurrency.rate,
                                     convertedRate

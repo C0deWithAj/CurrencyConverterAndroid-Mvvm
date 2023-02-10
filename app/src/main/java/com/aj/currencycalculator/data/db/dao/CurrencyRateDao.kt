@@ -28,5 +28,5 @@ interface CurrencyRateDao {
     suspend fun getCurrencyRate(
         currencyCodes: List<String>,
     ): List<CurrencyRateEntity>
-    
+
 }

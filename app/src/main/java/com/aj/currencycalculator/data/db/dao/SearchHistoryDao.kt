@@ -17,5 +17,6 @@ interface SearchHistoryDao {
     suspend fun getHistoryForDate(
         from: Date, to: Date
     ): List<SearchHistoryEntity>
+
 }
 

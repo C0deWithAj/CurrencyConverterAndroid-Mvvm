@@ -8,8 +8,8 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.aj.currencycalculator.ui.model.CurrencyConverterUIState
-import com.aj.currencycalculator.ui.model.CurrencyUI
+import com.aj.currencycalculator.domain.model.CurrencyConverterState
+import com.aj.currencycalculator.domain.model.Currency
 import com.aj.currencycalculator.data.model.ResultData
 import com.aj.currencycalculator.databinding.FragmentCurrencyConverterBinding
 import com.aj.currencycalculator.ui.base.BaseFragment
@@ -31,6 +31,7 @@ class CurrencyConverterFragment : BaseFragment() {
             binding = this
         }.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,7 +56,7 @@ class CurrencyConverterFragment : BaseFragment() {
     }
 
     private fun initBindings() {
-        binding.currenciesList = ArrayList<CurrencyUI>()
+        binding.currenciesList = ArrayList<Currency>()
         binding.lastUpdateDateTime = ""
         binding.viewModel = viewModel
     }
@@ -71,6 +72,7 @@ class CurrencyConverterFragment : BaseFragment() {
 
         binding.dropdownFromCurrency.setOnItemClickListener { _, _, position, _ ->
             binding.etFrom.hideKeyboard()
+            viewModel.onCurrencyCodeSelected(binding.dropdownFromCurrency.text.toString())
             if (position >= 0 && !binding.etFrom.text.isNullOrEmpty() && !binding.dropdownToCurrency.text.isNullOrEmpty()) {
                 onCurrencyChangedEvent()
             }
@@ -78,6 +80,7 @@ class CurrencyConverterFragment : BaseFragment() {
 
         binding.dropdownToCurrency.setOnItemClickListener { _, _, position, _ ->
             binding.etTo.hideKeyboard()
+            viewModel.onCurrencyCodeSelected(binding.dropdownToCurrency.text.toString())
             if (position >= 0 && !binding.etFrom.text.isNullOrEmpty() && !binding.dropdownFromCurrency.text.isNullOrEmpty()) {
                 onCurrencyChangedEvent()
             }
@@ -129,7 +132,7 @@ class CurrencyConverterFragment : BaseFragment() {
         )
     }
 
-    private val currencyListObserver = Observer<ResultData<List<CurrencyUI>>> {
+    private val currencyListObserver = Observer<ResultData<List<Currency>>> {
         when (it) {
             is ResultData.Loading -> {
                 showProgressDialog()
@@ -186,12 +189,11 @@ class CurrencyConverterFragment : BaseFragment() {
         }
     }
 
-    private val userUiStateObserver = Observer<CurrencyConverterUIState?> {
+    private val userUiStateObserver = Observer<CurrencyConverterState?> {
         binding.dropdownFromCurrency.setText(it.baseCurrency ?: "", false)
         binding.dropdownToCurrency.setText(it.toCurrency ?: "", false)
         binding.etFrom.setText(it.inputCurrency ?: "1")
     }
-
 
     private fun resetSelections() {
         binding.etFrom.setText("1")

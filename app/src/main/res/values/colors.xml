@@ -19,6 +19,8 @@
     <color name="currency_light_color">#989797</color>
     <color name="color_dark_color_1">#707070</color>
     <color name="box_text_color">#575656</color>
+    <color name="history_card_bg">#4DE8FFF0</color>
+    <color name="light_gray_2">#9C9B9B</color>
 
 
 </resources>

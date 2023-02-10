@@ -1,17 +1,12 @@
 package com.aj.currencycalculator.domain.conversionhistory
 
-import android.annotation.SuppressLint
-import android.util.Log
 import com.aj.currencycalculator.data.mapper.ObjectMapper
 import com.aj.currencycalculator.data.model.ResultData
 import com.aj.currencycalculator.data.repository.CurrencyDataRepository
-import com.aj.currencycalculator.ui.model.SearchHistoryUI
+import com.aj.currencycalculator.domain.model.SearchHistoryUI
 import com.aj.currencycalculator.util.DateTimeUtil
 import com.aj.currencycalculator.util.extension.toEntityModel
 import com.aj.currencycalculator.util.extension.translateToError
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 class SearchHistoryUseCaseImp @Inject constructor(
@@ -26,7 +21,7 @@ class SearchHistoryUseCaseImp @Inject constructor(
             if (yesterday != null && pastDate != null) {
                 val result = repository.getHistoryForDate(pastDate, yesterday)
                 result?.let {
-                    return ResultData.Success(dataMapper.historyEntityToUI(it))
+                    return ResultData.Success(dataMapper.historyEntityToModel(it))
                 } ?: run {
                     return ResultData.Success(listOf())
                 }

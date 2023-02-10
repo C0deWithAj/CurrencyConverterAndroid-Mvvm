@@ -1,10 +1,12 @@
 package com.aj.currencycalculator.util.extension
 
+import com.aj.currencycalculator.data.db.entity.CurrencyHistoryEntity
 import com.aj.currencycalculator.data.db.entity.CurrencyRateEntity
 import com.aj.currencycalculator.data.db.entity.SearchHistoryEntity
-import com.aj.currencycalculator.ui.model.CurrencyUI
-import com.aj.currencycalculator.data.network.model.CurrencyRateNetwork
-import com.aj.currencycalculator.ui.model.SearchHistoryUI
+import com.aj.currencycalculator.domain.model.Currency
+import com.aj.currencycalculator.data.network.model.currencylist.CurrencyRateNetwork
+import com.aj.currencycalculator.domain.model.HistoricalData
+import com.aj.currencycalculator.domain.model.SearchHistoryUI
 
 inline fun <T : Any> guardLet(vararg elements: T?, closure: () -> Nothing): List<T> {
     return if (elements.all { it != null }) {
@@ -20,7 +22,7 @@ inline fun <T : Any> ifLet(vararg elements: T?, closure: (List<T>) -> Unit) {
     }
 }
 
-fun CurrencyRateEntity.toUIModel() = CurrencyUI(
+fun CurrencyRateEntity.toModel() = Currency(
     code = code, rate = rate
 )
 
@@ -28,16 +30,23 @@ fun CurrencyRateNetwork.toDBModel() = CurrencyRateEntity(
     code = code ?: "", rate = rate
 )
 
-fun SearchHistoryEntity.toUIModel() = SearchHistoryUI.SearchHistory(
+fun SearchHistoryEntity.toModel() = SearchHistoryUI.SearchHistory(
     dateTime = date,
-    baseCurrency = baseCurrency,
+    baseCurrency = "",
     toCurrency,
     rate = convertedValue
 )
 
+//TODO: Remove
 fun SearchHistoryUI.SearchHistory.toEntityModel() = SearchHistoryEntity(
     date = dateTime,
-    baseCurrency = baseCurrency,
     toCurrency = toCurrency,
-    convertedValue = rate
+    c = "",
+    convertedValue = rate,
 )
+
+fun CurrencyRateNetwork.toModel() = HistoricalData.Currency(
+    code = code,
+    rate = rate
+)
+

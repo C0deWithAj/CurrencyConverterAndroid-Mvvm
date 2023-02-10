@@ -35,5 +35,9 @@ object DatabaseModule {
     fun providesHistoryDao(currencyDatabase: CurrencyDatabase) =
         currencyDatabase.getSearchHistoryDao()
 
+    @Singleton
+    @Provides
+    fun provideCurrencyHistoryDao(currencyDatabase: CurrencyDatabase) =
+        currencyDatabase.getCurrencyHistoryDao()
 
 }

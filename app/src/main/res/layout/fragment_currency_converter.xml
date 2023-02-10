@@ -8,10 +8,10 @@
         <import type="android.view.View" />
 
         <import type="java.util.List" />
-
+        
         <variable
             name="currenciesList"
-            type="List&lt;com.aj.currencycalculator.ui.model.CurrencyUI&gt;" />
+            type=" List&lt;com.aj.currencycalculator.domain.model.Currency&gt;" />
 
         <variable
             name="lastUpdateDateTime"
@@ -69,8 +69,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    android:textSize="@dimen/_10sdp"
                     android:textColorHint="#616161"
+                    android:textSize="@dimen/_10sdp"
                     app:loadCurrencies="@{currenciesList}"
                     tools:ignore="LabelFor" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -91,8 +91,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    android:textSize="@dimen/_10sdp"
                     android:textColorHint="#616161"
+                    android:textSize="@dimen/_10sdp"
                     app:loadCurrencies="@{currenciesList}"
                     tools:ignore="LabelFor" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -148,6 +148,7 @@
                 android:layout_marginBottom="@dimen/_15sdp"
                 android:onClick="@{(view) -> viewModel.refreshCurrencyRates()}"
                 android:text="@string/refresh_currency_rates"
+                app:icon="@drawable/ic_arrow_down"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"

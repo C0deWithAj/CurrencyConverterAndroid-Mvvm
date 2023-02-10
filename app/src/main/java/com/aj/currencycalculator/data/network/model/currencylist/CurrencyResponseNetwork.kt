@@ -1,5 +1,6 @@
-package com.aj.currencycalculator.data.network.model
+package com.aj.currencycalculator.data.network.model.currencylist
 
+import com.aj.currencycalculator.data.network.model.CurrencyAPIError
 import com.google.gson.JsonObject
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
@@ -33,3 +34,7 @@ fun CurrencyResponse.toListOfRates(): List<CurrencyRateNetwork>? {
         )
     }
 }
+
+
+
+

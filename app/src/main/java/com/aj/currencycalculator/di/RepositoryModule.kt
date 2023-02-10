@@ -1,5 +1,6 @@
 package com.aj.currencycalculator.di
 
+import com.aj.currencycalculator.data.db.dao.CurrencyHistoryDao
 import com.aj.currencycalculator.data.db.dao.CurrencyRateDao
 import com.aj.currencycalculator.data.db.dao.CurrencyRateUpdateTimeDao
 import com.aj.currencycalculator.data.db.dao.SearchHistoryDao
@@ -25,12 +26,14 @@ object RepositoryModule {
         currencyTimeDao: CurrencyRateUpdateTimeDao,
         api: CurrencyAPI,
         searchHistoryDao: SearchHistoryDao,
+        currencySelectionHistoryDao: CurrencyHistoryDao,
         networkDaoMapper: ObjectMapper
     ): CurrencyDataRepository =
         CurrencyDataRepositoryImp(
             currencyRateDao = currencyRateDAO,
             currencyTimeDao = currencyTimeDao,
             searchHistoryDao = searchHistoryDao,
+            currencySelectionHistoryDao = currencySelectionHistoryDao,
             api,
             networkDaoMapper
         )

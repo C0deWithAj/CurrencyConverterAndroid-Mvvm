@@ -1,4 +1,4 @@
-package com.aj.currencycalculator.ui.model
+package com.aj.currencycalculator.domain.model
 
 import java.util.Date
 

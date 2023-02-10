@@ -5,7 +5,7 @@ object AppConstant {
     const val BASE_CURRENCY = "USD"
     const val SHARED_PREF = "shared_pref"
 
-    const val SEARCH_HISTORY_DAYS = 3
+    const val SEARCH_HISTORICAL_DAYS = 3
     val FAMOUS_CURRENCIES =
         arrayListOf("USD", "EUR", "GBP", "CAD", "JPY", "AUD", "CHF", "CNY", "ZAR", "NZD", "AED")
 }

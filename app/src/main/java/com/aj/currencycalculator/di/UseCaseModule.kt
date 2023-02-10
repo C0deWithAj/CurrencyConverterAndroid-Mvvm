@@ -4,6 +4,8 @@ import com.aj.currencycalculator.data.mapper.ObjectMapper
 import com.aj.currencycalculator.data.repository.CurrencyDataRepository
 import com.aj.currencycalculator.domain.conversionhistory.SearchHistoryUseCase
 import com.aj.currencycalculator.domain.conversionhistory.SearchHistoryUseCaseImp
+import com.aj.currencycalculator.domain.currencyhistory.CurrencyHistoryUseCase
+import com.aj.currencycalculator.domain.currencyhistory.CurrencyHistoryUseCaseImp
 import com.aj.currencycalculator.domain.currrencyconverter.CurrencyConverterUseCase
 import com.aj.currencycalculator.domain.currrencyconverter.CurrencyConverterUseCaseImp
 import com.aj.currencycalculator.domain.popularcurrencies.PopularCurrenciesUseCase
@@ -65,6 +67,16 @@ object UseCaseModule {
     @Singleton
     @Provides
     fun providesPopularCurrencyUseCase(
-        repository: CurrencyDataRepository): PopularCurrenciesUseCase =
+        repository: CurrencyDataRepository
+    ): PopularCurrenciesUseCase =
         PopularCurrenciesUseCaseImp(repository)
+
+    @Singleton
+    @Provides
+    fun provideConversionHistoryUseCase(
+        repository: CurrencyDataRepository, mapper: ObjectMapper
+    ): CurrencyHistoryUseCase =
+        CurrencyHistoryUseCaseImp(repository, mapper)
 }
+
+

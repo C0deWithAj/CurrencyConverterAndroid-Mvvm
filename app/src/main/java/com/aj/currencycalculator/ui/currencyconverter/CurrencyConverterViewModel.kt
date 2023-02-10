@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aj.currencycalculator.ui.model.CurrencyConverterUIState
-import com.aj.currencycalculator.ui.model.CurrencyUI
+import com.aj.currencycalculator.domain.model.CurrencyConverterState
+import com.aj.currencycalculator.domain.model.Currency
 import com.aj.currencycalculator.data.model.ResultData
-import com.aj.currencycalculator.domain.conversionhistory.SearchHistoryUseCase
+import com.aj.currencycalculator.domain.currencyhistory.CurrencyHistoryUseCase
 import com.aj.currencycalculator.domain.currrencyconverter.CurrencyConverterUseCase
 import com.aj.currencycalculator.domain.ratelist.GetSavedCurrencyRateListUseCase
 import com.aj.currencycalculator.domain.updatedtime.GetCurrencyFetchTimeUseCase
@@ -24,12 +24,12 @@ class CurrencyConverterViewModel @Inject constructor(
     private val getCurrencyRateListUseCase: GetSavedCurrencyRateListUseCase,
     private val getCurrencyDateTimeFetch: GetCurrencyFetchTimeUseCase,
     private val currencyConverterUseCase: CurrencyConverterUseCase,
-    private val searchHistoryUseCase: SearchHistoryUseCase,
+    private val conversionHistoryUseCase: CurrencyHistoryUseCase,
     private val sharedPrefHelper: SharedPrefHelper
 ) : ViewModel() {
 
-    private val _uiState = MutableLiveData<ResultData<List<CurrencyUI>>>()
-    val currencyList: LiveData<ResultData<List<CurrencyUI>>>
+    private val _uiState = MutableLiveData<ResultData<List<Currency>>>()
+    val currencyList: LiveData<ResultData<List<Currency>>>
         get() = _uiState
 
     private val _lastFetchDateTime = MutableLiveData<String?>()
@@ -39,9 +39,9 @@ class CurrencyConverterViewModel @Inject constructor(
     val convertedCurrency: LiveData<ResultData<Double>> get() = _convertedCurrency
 
     private val _userSelectionState by lazy {
-        MutableLiveData<CurrencyConverterUIState>()
+        MutableLiveData<CurrencyConverterState>()
     }
-    val userSelectionState: LiveData<CurrencyConverterUIState> get() = _userSelectionState
+    val userSelectionState: LiveData<CurrencyConverterState> get() = _userSelectionState
 
     init {
         if (sharedPrefHelper.isCurrencyRateSavedOnce()) {
@@ -54,6 +54,7 @@ class CurrencyConverterViewModel @Inject constructor(
     private fun fetchLastSavedCurrencyRates() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
+                _uiState.postValue(ResultData.Loading())
                 getCurrencyRateListUseCase.getSavedCurrencyList().collect {
                     _uiState.postValue(ResultData.Success(it))
                     getLastFetchUpdateTime()
@@ -132,6 +133,14 @@ class CurrencyConverterViewModel @Inject constructor(
         }
     }
 
+    fun onCurrencyCodeSelected(currencyCode: String?) {
+        if (currencyCode.isNullOrEmpty())
+            return
+        viewModelScope.launch(Dispatchers.IO) {
+            conversionHistoryUseCase.insert(currencyCode)
+        }
+    }
+
     //save State on Configuration change
     fun onStopEvent(
         inputCurrency: String?,
@@ -139,7 +148,7 @@ class CurrencyConverterViewModel @Inject constructor(
         targetCurrencyCode: String?
     ) {
         _userSelectionState.value =
-            CurrencyConverterUIState(
+            CurrencyConverterState(
                 baseCurrency = baseCurrencyCode,
                 toCurrency = targetCurrencyCode,
                 inputCurrency

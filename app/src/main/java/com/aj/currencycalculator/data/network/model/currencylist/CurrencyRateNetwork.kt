@@ -1,4 +1,4 @@
-package com.aj.currencycalculator.data.network.model
+package com.aj.currencycalculator.data.network.model.currencylist
 
 import com.aj.currencycalculator.data.db.entity.CurrencyRateEntity
 import com.google.gson.annotations.Expose

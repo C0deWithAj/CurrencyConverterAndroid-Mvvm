@@ -7,11 +7,11 @@
 
         <variable
             name="convertedCurrency"
-            type="com.aj.currencycalculator.ui.model.ConvertedConversionUI" />
+            type="com.aj.currencycalculator.domain.model.ConvertedConversion" />
 
         <variable
             name="baseCurrency"
-            type="com.aj.currencycalculator.ui.model.CurrencyUI" />
+            type="com.aj.currencycalculator.domain.model.Currency" />
 
         <import type="com.aj.currencycalculator.util.extension.DoubleExtensionKt" />
 

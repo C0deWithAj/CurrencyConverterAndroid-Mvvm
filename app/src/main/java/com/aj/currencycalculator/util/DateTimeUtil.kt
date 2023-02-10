@@ -9,6 +9,7 @@ class DateTimeUtil {
 
     companion object {
 
+        //TODO: Remove
         @SuppressLint("SimpleDateFormat")
         fun getMillisOfLastXDays(days: Int): Date? {
             val day = -days;
@@ -17,6 +18,7 @@ class DateTimeUtil {
             return Date(cal.timeInMillis)
         }
 
+
         fun getDate(date: Date?): String? {
             date?.let {
                 val sdf = SimpleDateFormat("dd-MM-yyyy")
@@ -24,6 +26,15 @@ class DateTimeUtil {
             }
             return ""
         }
+
+        fun getAPIDate(date: Date?): String? {
+            date?.let {
+                val sdf = SimpleDateFormat("yyyy-MM-dd")
+                return sdf.format(date)
+            }
+            return ""
+        }
+
     }
 
 

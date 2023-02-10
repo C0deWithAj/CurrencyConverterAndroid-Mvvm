@@ -1,6 +1,6 @@
 package com.aj.currencycalculator.domain.updaterates
 
-import com.aj.currencycalculator.ui.model.CurrencyUI
+import com.aj.currencycalculator.domain.model.Currency
 import com.aj.currencycalculator.data.model.ResultData
 import kotlinx.coroutines.flow.Flow
 
@@ -9,5 +9,5 @@ import kotlinx.coroutines.flow.Flow
  *
  */
 interface RefreshCurrencyRatesUseCase {
-    fun refreshCurrencyRateFromAPI(): Flow<ResultData<List<CurrencyUI>>>
+    fun refreshCurrencyRateFromAPI(): Flow<ResultData<List<Currency>>>
 }

@@ -5,13 +5,13 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.databinding.BaseObservable
 import androidx.databinding.BindingAdapter
-import com.aj.currencycalculator.ui.model.CurrencyUI
+import com.aj.currencycalculator.domain.model.Currency
 
 object BindingAdapters : BaseObservable() {
 
     @BindingAdapter("loadCurrencies")
     @JvmStatic
-    fun loadCurrencies(txt: AutoCompleteTextView, currencyCode: List<CurrencyUI>?) {
+    fun loadCurrencies(txt: AutoCompleteTextView, currencyCode: List<Currency>?) {
         currencyCode?.map { it.code }?.let {
             txt.setAdapter(
                 ArrayAdapter(

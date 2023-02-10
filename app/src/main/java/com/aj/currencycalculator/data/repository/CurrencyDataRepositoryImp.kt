@@ -1,15 +1,23 @@
 package com.aj.currencycalculator.data.repository
 
+import com.aj.currencycalculator.data.db.dao.CurrencyHistoryDao
 import com.aj.currencycalculator.data.db.dao.CurrencyRateDao
 import com.aj.currencycalculator.data.db.dao.CurrencyRateUpdateTimeDao
 import com.aj.currencycalculator.data.db.dao.SearchHistoryDao
+import com.aj.currencycalculator.data.db.entity.CurrencyHistoryEntity
 import com.aj.currencycalculator.data.db.entity.CurrencyRateEntity
 import com.aj.currencycalculator.data.db.entity.CurrencyRateUpdateTimeEntity
 import com.aj.currencycalculator.data.db.entity.SearchHistoryEntity
 import com.aj.currencycalculator.data.mapper.ObjectMapper
 import com.aj.currencycalculator.data.model.ResultData
 import com.aj.currencycalculator.data.network.CurrencyAPI
-import com.aj.currencycalculator.data.network.model.toListOfRates
+import com.aj.currencycalculator.data.network.model.currencylist.CurrencyRateNetwork
+import com.aj.currencycalculator.data.network.model.currencylist.toListOfRates
+import com.aj.currencycalculator.data.network.model.timeseries.DateRateJson
+import com.aj.currencycalculator.data.network.model.timeseries.TimeSeriesResponse
+import com.aj.currencycalculator.data.network.model.timeseries.toDateListJson
+import com.aj.currencycalculator.data.network.model.timeseries.toListOfRates
+import com.aj.currencycalculator.util.DateTimeUtil
 import com.aj.currencycalculator.util.extension.translateToError
 import java.util.Date
 import javax.inject.Inject
@@ -24,6 +32,7 @@ class CurrencyDataRepositoryImp @Inject constructor(
     private val currencyRateDao: CurrencyRateDao,
     private val currencyTimeDao: CurrencyRateUpdateTimeDao,
     private val searchHistoryDao: SearchHistoryDao,
+    private val currencySelectionHistoryDao: CurrencyHistoryDao,
     private val currencyConverterAPI: CurrencyAPI,
     private val networkDaoMapper: ObjectMapper
 ) : CurrencyDataRepository {
@@ -60,6 +69,56 @@ class CurrencyDataRepositoryImp @Inject constructor(
         }
     }
 
+    override suspend fun getHistoricalData(
+        from: Date,
+        to: Date
+    ): HashMap<String, List<CurrencyRateNetwork>?>? {
+        val apiResponse = callTimeSeriesAPI(from, to)
+        var result = HashMap<String, List<CurrencyRateNetwork>?>()
+        apiResponse?.let { apiResponse ->
+            if (apiResponse.success) {
+                val dateListJson = apiResponse.toDateListJson()
+                result = getDateCurrencyRatesHashMap(dateListJson)
+            }
+        }
+        return result
+    }
+
+    /***
+     * Maps Json of currencies w.r.t date
+     * returns@ HashMap of <Date,ListCurrencyRateNetwork>
+     */
+    private fun getDateCurrencyRatesHashMap(list: List<DateRateJson>?): HashMap<String, List<CurrencyRateNetwork>?> {
+        val result = HashMap<String, List<CurrencyRateNetwork>?>()
+        list?.let {
+            for (dateJsonObj in list) {
+                val date = dateJsonObj.date
+                val currencyList = dateJsonObj.toListOfRates()
+                result[date] = currencyList
+            }
+        }
+        return result
+    }
+
+    private suspend fun callTimeSeriesAPI(from: Date, to: Date): TimeSeriesResponse? {
+        val rate = currencySelectionHistoryDao.getHistory()
+        val startDate = DateTimeUtil.getAPIDate(from)
+        val endDate = DateTimeUtil.getAPIDate(to)
+        if (!rate.isNullOrEmpty() && !startDate.isNullOrEmpty() && !endDate.isNullOrEmpty()) {
+            val listOfCurrencies = rate.joinToString { it.currencyCode }
+            return currencyConverterAPI.getTimeSeries(
+                startDate = startDate,
+                endDate = endDate,
+                listOfCurrencies
+            )
+        }
+        return null
+    }
+
+    override suspend fun insertCurrencySearch(currencyCode: String) {
+        currencySelectionHistoryDao.insert(CurrencyHistoryEntity(currencyCode))
+    }
+
     override suspend fun getHistoryForDate(from: Date, to: Date): List<SearchHistoryEntity>? =
         searchHistoryDao.getHistoryForDate(from, to)
 
@@ -78,7 +137,6 @@ class CurrencyDataRepositoryImp @Inject constructor(
 
     override suspend fun getCurrenciesRateList(currencyCodes: ArrayList<String>): List<CurrencyRateEntity>? =
         currencyRateDao.getCurrencyRate(currencyCodes)
-
 
 
 }

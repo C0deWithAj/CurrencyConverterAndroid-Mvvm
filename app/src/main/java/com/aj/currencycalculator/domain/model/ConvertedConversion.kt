@@ -1,6 +1,6 @@
-package com.aj.currencycalculator.ui.model
+package com.aj.currencycalculator.domain.model
 
-data class ConvertedConversionUI(
+data class ConvertedConversion(
     val code: String?,
     val rate: Double = 0.0, //
     val convertedRate: Double = 0.0

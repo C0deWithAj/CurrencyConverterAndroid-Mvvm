@@ -14,12 +14,15 @@ data class CurrencyRateUpdateTimeEntity(
     val updatedAt: Long = System.currentTimeMillis()
 )
 
+//TODO: Remove
 @Entity
 data class SearchHistoryEntity(
-    @PrimaryKey(autoGenerate = true) var id: Int? = null, var date: Date, var baseCurrency: String,
+    @PrimaryKey(autoGenerate = true) var id: Int? = null, var date: Date, var c: String,
     var toCurrency: String, var convertedValue: Double
 )
 
 
-
-
+@Entity
+data class CurrencyHistoryEntity(
+    @PrimaryKey var currencyCode: String
+)

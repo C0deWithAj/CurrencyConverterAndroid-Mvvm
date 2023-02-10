@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.DiffUtil
 import com.aj.currencycalculator.R
 import com.aj.currencycalculator.databinding.RowPopularCurrencyBinding
 import com.aj.currencycalculator.ui.base.BaseListAdapter
-import com.aj.currencycalculator.ui.model.ConvertedConversionUI
-import com.aj.currencycalculator.ui.model.CurrencyUI
+import com.aj.currencycalculator.domain.model.ConvertedConversion
+import com.aj.currencycalculator.domain.model.Currency
 
 class PopularCurrencyAdapter(
-    private val baseCurrency: CurrencyUI,
-) : BaseListAdapter<ConvertedConversionUI, RowPopularCurrencyBinding>(diffCallback = diffCallback) {
+    private val baseCurrency: Currency,
+) : BaseListAdapter<ConvertedConversion, RowPopularCurrencyBinding>(diffCallback = diffCallback) {
     override fun createBinding(parent: ViewGroup, viewType: Int): RowPopularCurrencyBinding {
         return DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
@@ -24,7 +24,7 @@ class PopularCurrencyAdapter(
 
     override fun bind(
         binding: RowPopularCurrencyBinding,
-        item: ConvertedConversionUI,
+        item: ConvertedConversion,
         position: Int
     ) {
         binding.baseCurrency = baseCurrency
@@ -32,18 +32,18 @@ class PopularCurrencyAdapter(
     }
 }
 
-val diffCallback: DiffUtil.ItemCallback<ConvertedConversionUI> =
-    object : DiffUtil.ItemCallback<ConvertedConversionUI>() {
+val diffCallback: DiffUtil.ItemCallback<ConvertedConversion> =
+    object : DiffUtil.ItemCallback<ConvertedConversion>() {
         override fun areItemsTheSame(
-            oldItem: ConvertedConversionUI,
-            newItem: ConvertedConversionUI
+            oldItem: ConvertedConversion,
+            newItem: ConvertedConversion
         ): Boolean {
             return false
         }
 
         override fun areContentsTheSame(
-            oldItem: ConvertedConversionUI,
-            newItem: ConvertedConversionUI
+            oldItem: ConvertedConversion,
+            newItem: ConvertedConversion
         ): Boolean {
             return false
         }

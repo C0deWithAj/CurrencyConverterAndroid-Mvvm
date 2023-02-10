@@ -1,6 +1,6 @@
-package com.aj.currencycalculator.ui.model
+package com.aj.currencycalculator.domain.model
 
-data class CurrencyConverterUIState(
+data class CurrencyConverterState(
     var baseCurrency: String?,
     var toCurrency: String?,
     var inputCurrency: String?
