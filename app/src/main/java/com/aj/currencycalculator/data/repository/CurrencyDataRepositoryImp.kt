@@ -3,11 +3,9 @@ package com.aj.currencycalculator.data.repository
 import com.aj.currencycalculator.data.db.dao.CurrencyHistoryDao
 import com.aj.currencycalculator.data.db.dao.CurrencyRateDao
 import com.aj.currencycalculator.data.db.dao.CurrencyRateUpdateTimeDao
-import com.aj.currencycalculator.data.db.dao.SearchHistoryDao
 import com.aj.currencycalculator.data.db.entity.CurrencyHistoryEntity
 import com.aj.currencycalculator.data.db.entity.CurrencyRateEntity
 import com.aj.currencycalculator.data.db.entity.CurrencyRateUpdateTimeEntity
-import com.aj.currencycalculator.data.db.entity.SearchHistoryEntity
 import com.aj.currencycalculator.data.mapper.ObjectMapper
 import com.aj.currencycalculator.data.model.ResultData
 import com.aj.currencycalculator.data.network.CurrencyAPI
@@ -31,7 +29,6 @@ import javax.inject.Singleton
 class CurrencyDataRepositoryImp @Inject constructor(
     private val currencyRateDao: CurrencyRateDao,
     private val currencyTimeDao: CurrencyRateUpdateTimeDao,
-    private val searchHistoryDao: SearchHistoryDao,
     private val currencySelectionHistoryDao: CurrencyHistoryDao,
     private val currencyConverterAPI: CurrencyAPI,
     private val networkDaoMapper: ObjectMapper
@@ -117,13 +114,6 @@ class CurrencyDataRepositoryImp @Inject constructor(
 
     override suspend fun insertCurrencySearch(currencyCode: String) {
         currencySelectionHistoryDao.insert(CurrencyHistoryEntity(currencyCode))
-    }
-
-    override suspend fun getHistoryForDate(from: Date, to: Date): List<SearchHistoryEntity>? =
-        searchHistoryDao.getHistoryForDate(from, to)
-
-    override suspend fun insertSearch(searchEntity: SearchHistoryEntity) {
-        searchHistoryDao.insert(searchEntity)
     }
 
     override suspend fun getCurrencyRateList(): List<CurrencyRateEntity> =

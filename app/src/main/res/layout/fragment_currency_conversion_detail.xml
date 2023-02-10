@@ -31,7 +31,6 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_300sdp"
                 android:layout_marginTop="@dimen/_7sdp"
-                android:background="@color/grey_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

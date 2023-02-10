@@ -1,11 +1,9 @@
 package com.aj.currencycalculator.data.mapper
 
 import com.aj.currencycalculator.data.db.entity.CurrencyRateEntity
-import com.aj.currencycalculator.data.db.entity.SearchHistoryEntity
 import com.aj.currencycalculator.data.network.model.currencylist.CurrencyRateNetwork
 import com.aj.currencycalculator.domain.model.Currency
 import com.aj.currencycalculator.domain.model.HistoricalData
-import com.aj.currencycalculator.domain.model.SearchHistoryUI
 import com.aj.currencycalculator.util.extension.toDBModel
 import com.aj.currencycalculator.util.extension.toModel
 import javax.inject.Inject
@@ -24,11 +22,6 @@ class ObjectMapperImp @Inject constructor() : ObjectMapper {
         }
     }
 
-    override fun historyEntityToModel(searchHistoryEntity: List<SearchHistoryEntity>): List<SearchHistoryUI.SearchHistory> {
-        return searchHistoryEntity.map {
-            it.toModel()
-        }
-    }
 
     override fun currencyHistoryEntityToModel(list: List<CurrencyRateNetwork>): List<HistoricalData.Currency> {
         return list.map {

@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aj.currencycalculator.data.model.ResultData
-import com.aj.currencycalculator.domain.conversionhistory.SearchHistoryUseCase
 import com.aj.currencycalculator.domain.currencyhistory.CurrencyHistoryUseCase
 import com.aj.currencycalculator.domain.model.*
 import com.aj.currencycalculator.domain.popularcurrencies.PopularCurrenciesUseCase
@@ -22,7 +21,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CurrencyConversionDetailViewModel @Inject constructor(
-    private val searchHistoryUseCase: SearchHistoryUseCase,
     private val popularCurrenciesUseCase: PopularCurrenciesUseCase,
     private val currencyConverterUseCase: CurrencyHistoryUseCase
 ) : ViewModel() {
@@ -63,7 +61,7 @@ class CurrencyConversionDetailViewModel @Inject constructor(
                     sdf.format(searchHistory.dateTime).equals(sdf.format(dateOfDay))
                 }
                 listOfData = remaining
-                // Prepare result list of header - Data
+                //Prepare result list of header - Data
                 if (desired.isNotEmpty()) {
                     val header = SearchHistoryUI.DateHeader(DateTimeUtil.getDate(dateOfDay))
                     result.add(header)
@@ -94,8 +92,7 @@ class CurrencyConversionDetailViewModel @Inject constructor(
                             Currency(
                                 baseCurrencyCode,
                                 baseCurrencyUserInput.removeDotConvertToDouble() ?: 0.0
-                            ),
-                            it
+                            ), it
                         )
                         _popularCurrencies.postValue(ResultData.Success(popularCurrenciesConversions))
                     } ?: run {
@@ -122,6 +119,7 @@ class CurrencyConversionDetailViewModel @Inject constructor(
                 }
 
                 else -> {
+
                 }
             }
         }
@@ -138,4 +136,5 @@ class CurrencyConversionDetailViewModel @Inject constructor(
             }
         }
     }
+
 }

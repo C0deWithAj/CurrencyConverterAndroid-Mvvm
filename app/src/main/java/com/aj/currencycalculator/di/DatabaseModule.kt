@@ -30,10 +30,6 @@ object DatabaseModule {
         Room.databaseBuilder(context, CurrencyDatabase::class.java, AppConstant.DATABASE_NAME)
             .build()
 
-    @Singleton
-    @Provides
-    fun providesHistoryDao(currencyDatabase: CurrencyDatabase) =
-        currencyDatabase.getSearchHistoryDao()
 
     @Singleton
     @Provides
