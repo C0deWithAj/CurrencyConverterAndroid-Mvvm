@@ -1,4 +1,4 @@
-# Currencny Converter
+# Currencny Converter MVVM + Clean Architecture 
 
 ✨ A Currency Converter with MVVM + Clean Architecture using [Fixer API](https://fixer.io/) ✨
 The application is offline first. On Free API. It fetches currency data for first time and then gives users ability to pull new data on demand.
